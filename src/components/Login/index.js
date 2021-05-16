@@ -7,11 +7,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import TextField from '../UI/TextField';
-import utilStyles from '../../styles/utils.module.scss';
 
 const Login = () => {
   return (
-    <Grid className={utilStyles['h-100']} container alignItems="center">
+    <Grid className="h-100" container alignItems="center">
       <Container maxWidth="sm">
         <Card>
           <Box m={2}>
