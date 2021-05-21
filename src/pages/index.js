@@ -1,4 +1,4 @@
-const Home = () => {
+const Home = ({ currentUser }) => {
   return <div>Home page</div>;
 };
 

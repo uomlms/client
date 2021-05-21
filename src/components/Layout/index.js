@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '../UI/Drawer';
 import AppBar from '../UI/AppBar';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => {
 
 const Layout = (props) => {
   const classes = useStyles();
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setIsDrawerOpen(!isDrawerOpen);

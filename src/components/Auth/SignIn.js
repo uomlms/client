@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import Router from 'next/router';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
@@ -7,8 +9,26 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import TextField from '../UI/TextField';
+import useRequest from '../../hooks/use-request';
 
 const SignIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { sendRequest, errors } = useRequest({
+    url: '/api/users/signin',
+    method: 'post',
+    body: {
+      email,
+      password,
+    },
+    onSuccess: () => Router.push('/'),
+  });
+
+  const handleSignInClicked = async (event) => {
+    event.preventDefault();
+    await sendRequest();
+  };
+
   return (
     <Grid className="h-100" container alignContent="center">
       <Container maxWidth="sm">
@@ -25,6 +45,8 @@ const SignIn = () => {
                   label="Email"
                   placeholder="Please enter your email"
                   fullWidth
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
               </Grid>
               <Grid item>
@@ -33,6 +55,8 @@ const SignIn = () => {
                   label="Password"
                   placeholder="Please enter your password"
                   fullWidth
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                 />
               </Grid>
               <Grid item>
@@ -44,7 +68,12 @@ const SignIn = () => {
                 />
               </Grid>
               <Grid item>
-                <Button color="primary" variant="contained" fullWidth>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                  onClick={handleSignInClicked}
+                >
                   Sign in
                 </Button>
               </Grid>
