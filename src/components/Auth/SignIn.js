@@ -8,20 +8,24 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import TextField from '../UI/TextField';
 
-const Login = () => {
+const SignIn = () => {
   return (
-    <Grid className="h-100" container alignItems="center">
+    <Grid className="h-100" container alignContent="center">
       <Container maxWidth="sm">
         <Card>
           <Box m={2}>
             <Grid container direction="column" spacing={2}>
               <Grid item>
                 <Typography variant="h4" align="center">
-                  Login
+                  Sign in
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField label="Email" placeholder="Please enter your email" fullWidth />
+                <TextField
+                  label="Email"
+                  placeholder="Please enter your email"
+                  fullWidth
+                />
               </Grid>
               <Grid item>
                 <TextField
@@ -33,13 +37,15 @@ const Login = () => {
               </Grid>
               <Grid item>
                 <FormControlLabel
-                  control={<Checkbox name="remember-me-checkbox" color="primary" />}
+                  control={
+                    <Checkbox name="remember-me-checkbox" color="primary" />
+                  }
                   label="Remember me"
                 />
               </Grid>
               <Grid item>
                 <Button color="primary" variant="contained" fullWidth>
-                  Login
+                  Sign in
                 </Button>
               </Grid>
             </Grid>
@@ -50,4 +56,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;

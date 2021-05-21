@@ -3,48 +3,37 @@ import { Drawer as MuiDrawer } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
-// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+// import NavLink from 'next/link';
+import Link from 'next/link';
 
-import classes from './styles.module.scss';
-
-// const useStyles = makeStyles((theme) => {
-//   // console.log(theme.br);
-//   return {
-//     // necessary for content to be below app bar
-//     toolbar: theme.mixins.toolbar,
-//     drawerPaper: {
-//       // width: drawerWidth,
-//     },
-//     content: {
-//       flexGrow: 1,
-//       padding: theme.spacing(3),
-//     },
-//   };
-// });
+const useStyles = makeStyles((theme) => {
+  return {
+    drawerWidth: {
+      width: '240px',
+    },
+  };
+});
 
 const Drawer = (props) => {
-  // const classesUseStyles = useStyles();
+  const classes = useStyles();
 
   const drawer = (
     <React.Fragment>
       <Toolbar />
       <List>
         <ListItem button key="log-in">
-          {/* <ListItemIcon>
-                  <MailIcon />
-                </ListItemIcon> */}
-          <ListItemText primary="Log in" />
+          <Link href="/auth/signin">
+            <ListItemText>Sign in</ListItemText>
+          </Link>
         </ListItem>
-      </List>
-      <List>
         <ListItem button key="sign-up">
-          {/* <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon> */}
-          <ListItemText primary="Sign up" />
+          <Link href="/auth/signup">
+            <ListItemText>Sign up</ListItemText>
+          </Link>
         </ListItem>
       </List>
     </React.Fragment>
@@ -57,7 +46,7 @@ const Drawer = (props) => {
           variant="temporary"
           open={props.open}
           onClose={props.handleDrawerToggle}
-          classes={{ paper: classes['drawer-paper'] }}
+          classes={{ paper: classes.drawerWidth }}
         >
           {drawer}
         </MuiDrawer>
@@ -66,7 +55,7 @@ const Drawer = (props) => {
         <MuiDrawer
           variant="permanent"
           open
-          classes={{ paper: classes['drawer-paper'] }}
+          classes={{ paper: classes.drawerWidth }}
         >
           {drawer}
         </MuiDrawer>
