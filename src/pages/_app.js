@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../theme';
-import Layout from '../components/layouts/Layout';
+import Layout from '../components/Layout';
 import '../styles/globals.scss';
 
 const MyApp = (props) => {
@@ -22,7 +22,10 @@ const MyApp = (props) => {
     <React.Fragment>
       <Head>
         <title>UOMLMS</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
       </Head>
       <ThemeProvider theme={theme}>
         <Layout>
