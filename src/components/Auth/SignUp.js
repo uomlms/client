@@ -10,12 +10,14 @@ import TextField from '../UI/TextField';
 import useRequest from '../../hooks/use-request';
 
 const SignUp = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { sendRequest, errors } = useRequest({
     url: '/api/users/signup',
     method: 'post',
     body: {
+      name,
       email,
       password,
     },
@@ -37,6 +39,15 @@ const SignUp = () => {
                 <Typography variant="h4" align="center">
                   Sign up
                 </Typography>
+              </Grid>
+              <Grid item>
+                <TextField
+                  label="Name"
+                  placeholder="Please enter your name"
+                  fullWidth
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
               </Grid>
               <Grid item>
                 <TextField
