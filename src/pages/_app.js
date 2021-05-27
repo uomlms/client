@@ -3,9 +3,10 @@ import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PropTypes from 'prop-types';
-import theme from '../theme';
-import Layout from '../components/Layout';
+import AuthenticatedLayout from '../components/Layout/AuthenticatedLayout';
+import AnonymousLayout from '../components/Layout/AnonymousLayout';
 import useClient from '../hooks/use-client';
+import theme from '../theme';
 import '../styles/globals.scss';
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
@@ -27,11 +28,14 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <Layout>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <AuthenticatedLayout>
           <CssBaseline />
           <Component {...pageProps} currentUser={currentUser} />
-        </Layout>
+        </AuthenticatedLayout>
+        {/* <AnonymousLayout>
+          <CssBaseline />
+          <Component {...pageProps} currentUser={currentUser} />
+        </AnonymousLayout> */}
       </ThemeProvider>
     </React.Fragment>
   );

@@ -3,8 +3,8 @@ import zIndex from '@material-ui/core/styles/zIndex';
 
 const theme = createMuiTheme({
   zIndex: {
-    appBar: zIndex.drawer + 1
-  }
+    appBar: zIndex.drawer + 1,
+  },
 });
 
 export default theme;

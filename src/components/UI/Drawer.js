@@ -1,4 +1,5 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { Drawer as MuiDrawer } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
@@ -6,8 +7,6 @@ import ListItem from '@material-ui/core/ListItem';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles } from '@material-ui/core/styles';
-// import NavLink from 'next/link';
 import Link from 'next/link';
 
 const useStyles = makeStyles((theme) => {
@@ -25,23 +24,23 @@ const Drawer = (props) => {
     <React.Fragment>
       <Toolbar />
       <List>
-        <ListItem button key="log-in">
-          <Link href="/auth/signin">
-            <ListItemText>Sign in</ListItemText>
-          </Link>
-        </ListItem>
-        <ListItem button key="sign-up">
-          <Link href="/auth/signup">
-            <ListItemText>Sign up</ListItemText>
-          </Link>
-        </ListItem>
+        <Link href="/">
+          <ListItem button key="home">
+            <ListItemText>Home</ListItemText>
+          </ListItem>
+        </Link>
+        <Link href="/courses">
+          <ListItem button key="courses">
+            <ListItemText>Courses</ListItemText>
+          </ListItem>
+        </Link>
       </List>
     </React.Fragment>
   );
 
   return (
     <React.Fragment>
-      <Hidden smUp implementation="css">
+      <Hidden mdUp implementation="css">
         <MuiDrawer
           variant="temporary"
           open={props.open}
@@ -51,7 +50,7 @@ const Drawer = (props) => {
           {drawer}
         </MuiDrawer>
       </Hidden>
-      <Hidden xsDown implementation="css">
+      <Hidden smDown implementation="css">
         <MuiDrawer
           variant="permanent"
           open
