@@ -12,9 +12,13 @@ const AuthenticatedLayout = (props) => {
 
   return (
     <React.Fragment>
-      <AppBar isAuthenticated={true} onToggleClick={handleDrawerToggle} />
+      <AppBar
+        isAuthenticated={true}
+        currentUser={props.currentUser}
+        onToggleClick={handleDrawerToggle}
+      />
       <Drawer open={isDrawerOpen} handleDrawerToggle={handleDrawerToggle} />
-      <MainContent>{props.children}</MainContent>
+      <MainContent isAuthenticated={true}>{props.children}</MainContent>
     </React.Fragment>
   );
 };

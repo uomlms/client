@@ -18,6 +18,20 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
     }
   }, []);
 
+  const authenticatedLayout = (
+    <AuthenticatedLayout currentUser={currentUser}>
+      <CssBaseline />
+      <Component {...pageProps} currentUser={currentUser} />
+    </AuthenticatedLayout>
+  );
+
+  const anonymousLayout = (
+    <AnonymousLayout>
+      <CssBaseline />
+      <Component {...pageProps} currentUser={currentUser} />
+    </AnonymousLayout>
+  );
+
   return (
     <React.Fragment>
       <Head>
@@ -28,14 +42,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <AuthenticatedLayout>
-          <CssBaseline />
-          <Component {...pageProps} currentUser={currentUser} />
-        </AuthenticatedLayout>
-        {/* <AnonymousLayout>
-          <CssBaseline />
-          <Component {...pageProps} currentUser={currentUser} />
-        </AnonymousLayout> */}
+        {currentUser ? authenticatedLayout : anonymousLayout}
       </ThemeProvider>
     </React.Fragment>
   );

@@ -7,6 +7,8 @@ const useStyles = makeStyles((theme) => {
     mainContent: {
       height: '100%',
       padding: '10px',
+    },
+    appBarMargin: {
       [theme.breakpoints.down('sm')]: {
         marginLeft: 0,
       },
@@ -20,8 +22,13 @@ const useStyles = makeStyles((theme) => {
 const MainContent = (props) => {
   const classes = useStyles();
 
+  const mainClasses = [
+    classes.mainContent,
+    props.isAuthenticated ? classes.appBarMargin : null,
+  ];
+
   return (
-    <main className={classes.mainContent}>
+    <main className={mainClasses.join(' ')}>
       <div className={classes.toolbar}></div>
       {props.children}
     </main>

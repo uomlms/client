@@ -6,7 +6,7 @@ const AnonymousLayout = (props) => {
   return (
     <React.Fragment>
       <AppBar isAuthenticated={false} />
-      <MainContent>{props.children}</MainContent>
+      <MainContent isAuthenticated={false}>{props.children}</MainContent>
     </React.Fragment>
   );
 };
