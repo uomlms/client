@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 import TextField from '../UI/TextField';
 import useRequest from '../../hooks/use-request';
 
@@ -29,9 +30,19 @@ const SignUp = () => {
     await sendRequest();
   };
 
+  const errorMessages =
+    errors &&
+    errors.map((err) => (
+      <Box key={err.message} my={1}>
+        <Alert severity="error">{err.message}</Alert>
+      </Box>
+    ));
+
   return (
     <Grid className="h-100" container alignContent="center">
       <Container maxWidth="sm">
+        {errorMessages}
+
         <Card>
           <Box m={2}>
             <Grid container direction="column" spacing={2}>
@@ -69,12 +80,7 @@ const SignUp = () => {
                 />
               </Grid>
               <Grid item>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  fullWidth
-                  onClick={handleSignUpClicked}
-                >
+                <Button color="primary" variant="contained" fullWidth onClick={handleSignUpClicked}>
                   Sign up
                 </Button>
               </Grid>

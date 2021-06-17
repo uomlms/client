@@ -15,16 +15,7 @@ const useRequest = ({ url, method, body, onSuccess }) => {
 
       return response.data;
     } catch (err) {
-      setErrors(
-        <div>
-          <h4>Ooops....</h4>
-          <ul>
-            {err.response.data.errors.map((err) => (
-              <li key={err.message}>{err.message}</li>
-            ))}
-          </ul>
-        </div>
-      );
+      setErrors(err.response.data.errors);
     }
   };
 

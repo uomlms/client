@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 import TextField from '../UI/TextField';
 import useRequest from '../../hooks/use-request';
 
@@ -29,9 +30,19 @@ const SignIn = () => {
     await sendRequest();
   };
 
+  const errorMessages =
+    errors &&
+    errors.map((err) => (
+      <Box key={err.message} my={1}>
+        <Alert severity="error">{err.message}</Alert>
+      </Box>
+    ));
+
   return (
     <Grid className="h-100" container alignContent="center">
       <Container maxWidth="sm">
+        {errorMessages}
+
         <Card>
           <Box m={2}>
             <Grid container direction="column" spacing={2}>
@@ -61,19 +72,12 @@ const SignIn = () => {
               </Grid>
               <Grid item>
                 <FormControlLabel
-                  control={
-                    <Checkbox name="remember-me-checkbox" color="primary" />
-                  }
+                  control={<Checkbox name="remember-me-checkbox" color="primary" />}
                   label="Remember me"
                 />
               </Grid>
               <Grid item>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  fullWidth
-                  onClick={handleSignInClicked}
-                >
+                <Button color="primary" variant="contained" fullWidth onClick={handleSignInClicked}>
                   Sign in
                 </Button>
               </Grid>
