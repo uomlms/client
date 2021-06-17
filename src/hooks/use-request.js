@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { useState } from 'react';
 
+/**
+ * A hook that executes a request to the given url if the fuction
+ * 'sendRequest' is called, and handles the error state. Also executes a
+ * given callback if the request is successful.
+ *
+ * @param {object} param0
+ * @returns {object}
+ */
 const useRequest = ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);
 

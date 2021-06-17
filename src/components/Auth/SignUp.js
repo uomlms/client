@@ -10,6 +10,12 @@ import Alert from '@material-ui/lab/Alert';
 import TextField from '../UI/TextField';
 import useRequest from '../../hooks/use-request';
 
+/**
+ * SignUp component
+ *
+ * Handles the sign up process by rendering the sign in form and executing
+ * the sign up request to the authentication service.
+ */
 const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -25,6 +31,12 @@ const SignUp = () => {
     onSuccess: () => Router.push('/'),
   });
 
+  /**
+   * Handles the click event of the Sign up button.
+   * Executes the Sign up request to the authentication service.
+   *
+   * @param {object} event
+   */
   const handleSignUpClicked = async (event) => {
     event.preventDefault();
     await sendRequest();
