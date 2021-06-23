@@ -8,29 +8,38 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => {
   return {
     drawerWidth: {
       width: '240px',
     },
+    activeLink: {
+      backgroundColor: theme.palette.primary.light,
+    },
   };
 });
 
 const Drawer = (props) => {
   const classes = useStyles();
+  const router = useRouter();
 
   const drawer = (
     <React.Fragment>
       <Toolbar />
       <List>
         <Link href="/">
-          <ListItem button key="home">
+          <ListItem button key="home" className={router.pathname === '/' && classes.activeLink}>
             <ListItemText>Home</ListItemText>
           </ListItem>
         </Link>
         <Link href="/courses">
-          <ListItem button key="courses">
+          <ListItem
+            button
+            key="courses"
+            className={router.pathname === '/courses' && classes.activeLink}
+          >
             <ListItemText>Courses</ListItemText>
           </ListItem>
         </Link>
@@ -51,11 +60,7 @@ const Drawer = (props) => {
         </MuiDrawer>
       </Hidden>
       <Hidden smDown implementation="css">
-        <MuiDrawer
-          variant="permanent"
-          open
-          classes={{ paper: classes.drawerWidth }}
-        >
+        <MuiDrawer variant="permanent" open classes={{ paper: classes.drawerWidth }}>
           {drawer}
         </MuiDrawer>
       </Hidden>
