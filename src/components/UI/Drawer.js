@@ -30,7 +30,11 @@ const Drawer = (props) => {
       <Toolbar />
       <List>
         <Link href="/">
-          <ListItem button key="home" className={router.pathname === '/' && classes.activeLink}>
+          <ListItem
+            button
+            key="home"
+            className={router.pathname === '/' ? classes.activeLink : null}
+          >
             <ListItemText>Home</ListItemText>
           </ListItem>
         </Link>
@@ -38,7 +42,7 @@ const Drawer = (props) => {
           <ListItem
             button
             key="courses"
-            className={router.pathname === '/courses' && classes.activeLink}
+            className={router.pathname === '/courses' ? classes.activeLink : null}
           >
             <ListItemText>Courses</ListItemText>
           </ListItem>

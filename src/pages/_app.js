@@ -36,10 +36,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
     <React.Fragment>
       <Head>
         <title>UOMLMS</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
         {currentUser ? authenticatedLayout : anonymousLayout}

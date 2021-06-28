@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Home from '../components/Home';
 
 const HomePage = ({ currentUser }) => {
   const router = useRouter();
@@ -10,7 +11,7 @@ const HomePage = ({ currentUser }) => {
     }
   }, [currentUser]);
 
-  return <div>Home page</div>;
+  return <Home />;
 };
 
 export default HomePage;

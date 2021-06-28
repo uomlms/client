@@ -6,14 +6,13 @@ const useStyles = makeStyles((theme) => {
     toolbar: theme.mixins.toolbar,
     mainContent: {
       height: '100%',
-      padding: '10px',
     },
     appBarMargin: {
       [theme.breakpoints.down('sm')]: {
-        marginLeft: 0,
+        marginLeft: theme.drawer.smWidth,
       },
       [theme.breakpoints.up('md')]: {
-        marginLeft: '240px',
+        marginLeft: theme.drawer.mdWidth,
       },
     },
   };
@@ -22,10 +21,7 @@ const useStyles = makeStyles((theme) => {
 const MainContent = (props) => {
   const classes = useStyles();
 
-  const mainClasses = [
-    classes.mainContent,
-    props.isAuthenticated ? classes.appBarMargin : null,
-  ];
+  const mainClasses = [classes.mainContent, props.isAuthenticated ? classes.appBarMargin : null];
 
   return (
     <main className={mainClasses.join(' ')}>
