@@ -4,9 +4,11 @@ import { Drawer as MuiDrawer } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
+import HomeIcon from '@material-ui/icons/Home';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -35,6 +37,9 @@ const Drawer = (props) => {
             key="home"
             className={router.pathname === '/' ? classes.activeLink : null}
           >
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
             <ListItemText>Home</ListItemText>
           </ListItem>
         </Link>
@@ -44,6 +49,9 @@ const Drawer = (props) => {
             key="courses"
             className={router.pathname === '/courses' ? classes.activeLink : null}
           >
+            <ListItemIcon>
+              <MenuBookIcon />
+            </ListItemIcon>
             <ListItemText>Courses</ListItemText>
           </ListItem>
         </Link>
