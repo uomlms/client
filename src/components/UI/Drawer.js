@@ -30,7 +30,7 @@ const Drawer = (props) => {
   const drawer = (
     <React.Fragment>
       <Toolbar />
-      <List>
+      <List component="nav">
         <Link href="/">
           <ListItem
             button

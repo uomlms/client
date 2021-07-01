@@ -1,14 +1,11 @@
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import Page from './UI/Page';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => {
   return {
-    root: {
-      display: 'flex',
-      height: '100%',
-    },
     card: {
       height: '100%',
       padding: '5px',
@@ -24,7 +21,7 @@ const Home = () => {
 
   return (
     <Page>
-      <div className={classes.root}>
+      <Box height="100%" display="flex">
         <Grid container spacing={1}>
           <Grid item md={6} xs={12}>
             <Paper className={classes.card} variant="outlined">
@@ -47,7 +44,7 @@ const Home = () => {
             </Paper>
           </Grid>
         </Grid>
-      </div>
+      </Box>
     </Page>
   );
 };
