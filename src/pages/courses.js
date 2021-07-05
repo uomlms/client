@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Courses from '../components/Courses';
+import Courses from '../components/Courses/Courses';
 
 const CoursesPage = ({ currentUser }) => {
   const router = useRouter();

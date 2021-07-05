@@ -1,3 +1,4 @@
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => {
@@ -24,10 +25,10 @@ const MainContent = (props) => {
   const mainClasses = [classes.mainContent, props.isAuthenticated ? classes.appBarMargin : null];
 
   return (
-    <main className={mainClasses.join(' ')}>
+    <React.Fragment>
       <div className={classes.toolbar}></div>
-      {props.children}
-    </main>
+      <main className={mainClasses.join(' ')}>{props.children}</main>
+    </React.Fragment>
   );
 };
 

@@ -1,40 +1,50 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
-import Page from './UI/Page';
-import TextField from './UI/TextField';
 import { makeStyles } from '@material-ui/core';
+import Page from '../UI/Page';
+import TextField from '../UI/TextField';
+import CoursesList from './CoursesList';
 
 const useStyles = makeStyles((theme) => {
   return {};
 });
 
 const COURSES = [
-  { name: 'Course 1' },
-  { name: 'Course 2' },
-  { name: 'Course 3' },
-  { name: 'Course 4' },
+  {
+    id: '1',
+    name: 'Course 1',
+    professor: 'course 1 professor',
+    description: 'course 1 description',
+  },
+  {
+    id: '2',
+    name: 'Course 2',
+    professor: 'course 2 professor',
+    description: 'course 2 description',
+  },
+  {
+    id: '3',
+    name: 'Course 3',
+    professor: 'course 3 professor',
+    description: 'course 3 description',
+  },
+  {
+    id: '4',
+    name: 'Course 4',
+    professor: 'course 4 professor',
+    description: 'course 6 description',
+  },
 ];
 
 const Home = () => {
   const classes = useStyles();
 
-  const courses = COURSES.map((course) => {
-    return (
-      <ListItem key={course.name}>
-        <ListItemText primary={course.name} />
-      </ListItem>
-    );
-  });
-
   return (
     <Page>
       <Box border={1} borderRadius={10} borderColor="grey.300" p={1} height={1}>
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid item md={3}>
             <Box display="flex" alignItems="center">
               <SearchIcon />
@@ -49,10 +59,7 @@ const Home = () => {
             </Box>
           </Grid>
           <Grid item md={3}>
-            <List>{courses}</List>
-          </Grid>
-          <Grid item md={9}>
-            Test
+            <CoursesList courses={COURSES} />
           </Grid>
         </Grid>
       </Box>

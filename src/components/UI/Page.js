@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => {
       [theme.breakpoints.up('md')]: {
         left: theme.drawer.mdWidth,
       },
-      margin: '10px',
-      padding: '10px',
+      margin: '5px',
+      padding: '5px',
     },
   };
 });

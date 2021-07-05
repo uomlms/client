@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => {
     drawerWidth: {
       width: '240px',
     },
-    activeLink: {
-      backgroundColor: theme.palette.primary.light,
+    selectedMenuItem: {
+      borderRight: `3px solid ${theme.palette.primary.light}`,
     },
   };
 });
@@ -35,7 +35,10 @@ const Drawer = (props) => {
           <ListItem
             button
             key="home"
-            className={router.pathname === '/' ? classes.activeLink : null}
+            selected={router.pathname === '/'}
+            classes={{
+              selected: classes.selectedMenuItem,
+            }}
           >
             <ListItemIcon>
               <HomeIcon />
@@ -47,7 +50,10 @@ const Drawer = (props) => {
           <ListItem
             button
             key="courses"
-            className={router.pathname === '/courses' ? classes.activeLink : null}
+            selected={router.pathname === '/courses'}
+            classes={{
+              selected: classes.selectedMenuItem,
+            }}
           >
             <ListItemIcon>
               <MenuBookIcon />
