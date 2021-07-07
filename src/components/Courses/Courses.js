@@ -2,14 +2,10 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
-import { makeStyles } from '@material-ui/core';
 import Page from '../UI/Page';
 import TextField from '../UI/TextField';
 import CoursesList from './CoursesList';
-
-const useStyles = makeStyles((theme) => {
-  return {};
-});
+import CourseDetails from './CourseDetails';
 
 const COURSES = [
   {
@@ -39,11 +35,10 @@ const COURSES = [
 ];
 
 const Home = () => {
-  const classes = useStyles();
-
   return (
     <Page>
-      <Box border={1} borderRadius={10} borderColor="grey.300" p={1} height={1}>
+      {/* find a better way to expand the child element to the min-height */}
+      <Box p={1} flexGrow={1}>
         <Grid container spacing={2}>
           <Grid item md={3}>
             <Box display="flex" alignItems="center">
@@ -60,6 +55,9 @@ const Home = () => {
           </Grid>
           <Grid item md={3}>
             <CoursesList courses={COURSES} />
+          </Grid>
+          <Grid item md={9}>
+            <CourseDetails />
           </Grid>
         </Grid>
       </Box>

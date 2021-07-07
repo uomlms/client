@@ -4,18 +4,12 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => {
   return {
     page: {
-      position: 'absolute',
-      right: '0',
-      bottom: '0',
-      top: theme.appBar.height,
-      [theme.breakpoints.down('sm')]: {
-        left: theme.drawer.smWidth,
-      },
-      [theme.breakpoints.up('md')]: {
-        left: theme.drawer.mdWidth,
-      },
+      minHeight: '90%',
       margin: '5px',
       padding: '5px',
+      // find a better way to expand the child element to the min-height
+      display: 'flex',
+      flexDirection: 'column',
     },
   };
 });
