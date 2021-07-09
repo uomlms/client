@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -34,7 +35,20 @@ const COURSES = [
   },
 ];
 
-const Home = () => {
+const Courses = () => {
+  const [selectedCourse, setSelectedCourse] = useState();
+  const courses = COURSES;
+
+  useEffect(() => {
+    if (courses.length >= 0) {
+      setSelectedCourse(courses[0]);
+    }
+  }, []);
+
+  const handleSelectCourse = (newselectedCourse) => {
+    setSelectedCourse(newselectedCourse);
+  };
+
   return (
     <Page>
       <Box p={1} flexGrow={1}>
@@ -53,10 +67,14 @@ const Home = () => {
             </Box>
           </Grid>
           <Grid item md={3}>
-            <CoursesList courses={COURSES} />
+            <CoursesList
+              selectedCourse={selectedCourse}
+              courses={courses}
+              handleSelectCourse={handleSelectCourse}
+            />
           </Grid>
           <Grid item md={9}>
-            <CourseDetails />
+            <CourseDetails selectedCourse={selectedCourse} />
           </Grid>
         </Grid>
       </Box>
@@ -64,4 +82,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Courses;

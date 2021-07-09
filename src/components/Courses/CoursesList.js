@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -10,20 +9,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CoursesList = (props) => {
-  const { courses } = props;
-  const [activeCourse, setActiveCourse] = useState();
+const CoursesList = ({ courses, selectedCourse, handleSelectCourse }) => {
   const classes = useStyles();
-
-  useEffect(() => {
-    if (courses.length >= 0) {
-      setActiveCourse(courses[0]);
-    }
-  }, []);
-
-  const handleChangeActiveCourse = (newActiveCourse) => {
-    setActiveCourse(newActiveCourse);
-  };
 
   return (
     <List>
@@ -31,11 +18,11 @@ const CoursesList = (props) => {
         <ListItem
           button
           key={course.id}
-          selected={activeCourse?.id === course.id}
+          selected={selectedCourse?.id === course.id}
           classes={{
             selected: classes.selectedCourseItem,
           }}
-          onClick={() => handleChangeActiveCourse(course)}
+          onClick={() => handleSelectCourse(course)}
         >
           <ListItemText primary={course.name} secondary={course.professor} />
         </ListItem>
