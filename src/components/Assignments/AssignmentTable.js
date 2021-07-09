@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core';
+import AssignmentActions from './AssignmentActions';
 
 const useStyles = makeStyles((theme) => ({
   theadLight: {
@@ -21,7 +22,9 @@ const AssignmentTable = (props) => {
       <TableCell>{assignment.name}</TableCell>
       <TableCell>{assignment.description}</TableCell>
       <TableCell>{assignment.dueDate}</TableCell>
-      <TableCell align="right">{assignment.actions}</TableCell>
+      <TableCell align="right">
+        <AssignmentActions>{assignment.actions}</AssignmentActions>
+      </TableCell>
     </TableRow>
   ));
 
