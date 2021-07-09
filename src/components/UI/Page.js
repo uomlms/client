@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme) => {
       minHeight: '90%',
       margin: '5px',
       padding: '5px',
-      // find a better way to expand the child element to the min-height
       display: 'flex',
       flexDirection: 'column',
     },

@@ -37,7 +37,6 @@ const COURSES = [
 const Home = () => {
   return (
     <Page>
-      {/* find a better way to expand the child element to the min-height */}
       <Box p={1} flexGrow={1}>
         <Grid container spacing={2}>
           <Grid item md={3}>

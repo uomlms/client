@@ -21,7 +21,7 @@ const Home = () => {
 
   return (
     <Page>
-      <Box height="100%" display="flex">
+      <Box flexGrow={1} display="flex">
         <Grid container spacing={1}>
           <Grid item md={6} xs={12}>
             <Paper className={classes.card} variant="outlined">

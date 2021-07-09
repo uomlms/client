@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import TextField from '../UI/TextField';
-import AssignmentList from '../Assignments/AssignmentList';
+import Assignments from '../Assignments/Assignments';
 
 const CourseDetails = () => {
   return (
@@ -19,7 +19,7 @@ const CourseDetails = () => {
         />
       </Box>
       <Box>
-        <AssignmentList />
+        <Assignments />
       </Box>
     </React.Fragment>
   );
