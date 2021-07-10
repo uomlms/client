@@ -14,19 +14,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AssignmentTable = (props) => {
+const AssignmentTable = ({ assignments }) => {
   const classes = useStyles();
 
-  const assignments = props.assignments.map((assignment, index) => (
+  let assignmentsRows = (
     <TableRow>
-      <TableCell>{assignment.name}</TableCell>
-      <TableCell>{assignment.description}</TableCell>
-      <TableCell>{assignment.dueDate}</TableCell>
-      <TableCell align="right">
-        <AssignmentActions>{assignment.actions}</AssignmentActions>
-      </TableCell>
+      <TableCell>No assignments for the selected course</TableCell>
     </TableRow>
-  ));
+  );
+  if (assignments) {
+    assignmentsRows = assignments.map((assignment, index) => (
+      <TableRow>
+        <TableCell>{assignment.name}</TableCell>
+        <TableCell>{assignment.description}</TableCell>
+        <TableCell>{assignment.dueDate}</TableCell>
+        <TableCell align="right" style={{ width: '20%' }}>
+          <AssignmentActions>{assignment.actions}</AssignmentActions>
+        </TableCell>
+      </TableRow>
+    ));
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -39,7 +46,7 @@ const AssignmentTable = (props) => {
             <TableCell></TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>{assignments}</TableBody>
+        <TableBody>{assignmentsRows}</TableBody>
       </Table>
     </TableContainer>
   );

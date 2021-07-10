@@ -13,14 +13,13 @@ const CourseDetails = ({ selectedCourse }) => {
           multiline
           fullWidth
           rows={4}
-          maxRows={4}
           InputLabelProps={{
             shrink: true,
           }}
         />
       </Box>
       <Box>
-        <Assignments />
+        <Assignments assignments={selectedCourse?.assignments} />
       </Box>
     </React.Fragment>
   );
