@@ -24,7 +24,7 @@ const AssignmentTable = ({ assignments }) => {
   );
   if (assignments) {
     assignmentsRows = assignments.map((assignment, index) => (
-      <TableRow>
+      <TableRow key={index}>
         <TableCell>{assignment.name}</TableCell>
         <TableCell>{assignment.description}</TableCell>
         <TableCell>{assignment.dueDate}</TableCell>

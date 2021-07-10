@@ -8,9 +8,11 @@ import TextField from '../UI/TextField';
 import CoursesList from './CoursesList';
 import CourseDetails from './CourseDetails';
 import COURSES from './DummyCourses';
+import CreateCourseModal from './CreateCourseModal';
 
 const Courses = () => {
   const [selectedCourse, setSelectedCourse] = useState();
+  const [isModalActive, setIsModalActive] = useState(false);
   const courses = COURSES;
 
   useEffect(() => {
@@ -21,6 +23,14 @@ const Courses = () => {
 
   const handleSelectCourse = (newselectedCourse) => {
     setSelectedCourse(newselectedCourse);
+  };
+
+  const handleCreateCourseClicked = () => {
+    setIsModalActive(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalActive(false);
   };
 
   return (
@@ -35,7 +45,7 @@ const Courses = () => {
           </Grid>
           <Grid item md={9}>
             <Box height={1} display="flex" alignItems="center" justifyContent="flex-end">
-              <Button color="primary" variant="contained">
+              <Button color="primary" variant="contained" onClick={handleCreateCourseClicked}>
                 Create course
               </Button>
             </Box>
@@ -52,6 +62,7 @@ const Courses = () => {
           </Grid>
         </Grid>
       </Box>
+      <CreateCourseModal open={isModalActive} onClose={handleCloseModal} />
     </Page>
   );
 };
