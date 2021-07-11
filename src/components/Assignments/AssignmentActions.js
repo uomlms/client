@@ -8,13 +8,16 @@ import DeleteIcon from '@material-ui/icons/Delete';
 /**
  * Renders the actions that can be executed for each assignment
  *
+ * @param {object} props
  * @returns {JSX.Element}
  */
-const AssignmentActions = () => {
+const AssignmentActions = (props) => {
+  const { assignment, onEditAssignment, onDeleteAssignment } = props;
+
   return (
     <Box display="flex" justifyContent="flex-end">
       <Box mx={1}>
-        <IconButton title="Edit">
+        <IconButton title="Edit" onClick={() => onEditAssignment(assignment)}>
           <EditIcon />
         </IconButton>
       </Box>
@@ -29,7 +32,7 @@ const AssignmentActions = () => {
         </IconButton>
       </Box>
       <Box ml={1}>
-        <IconButton title="Delete">
+        <IconButton title="Delete" onClick={() => onDeleteAssignment(assignment)}>
           <DeleteIcon />
         </IconButton>
       </Box>
