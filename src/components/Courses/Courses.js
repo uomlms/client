@@ -7,12 +7,14 @@ import Button from '../UI/Buttons/Button';
 import TextField from '../UI/TextField';
 import CoursesList from './CoursesList';
 import CourseDetails from './CourseDetails';
-import COURSES from './DummyCourses';
 import CreateCourseModal from './CreateCourseModal';
+import useModal from '../../hooks/use-modal';
+
+import COURSES from './DummyCourses';
 
 const Courses = () => {
   const [selectedCourse, setSelectedCourse] = useState();
-  const [isModalActive, setIsModalActive] = useState(false);
+  const modal = useModal();
   const courses = COURSES;
 
   useEffect(() => {
@@ -23,14 +25,6 @@ const Courses = () => {
 
   const handleSelectCourse = (newselectedCourse) => {
     setSelectedCourse(newselectedCourse);
-  };
-
-  const handleCreateCourseClicked = () => {
-    setIsModalActive(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalActive(false);
   };
 
   return (
@@ -45,7 +39,7 @@ const Courses = () => {
           </Grid>
           <Grid item md={9}>
             <Box height={1} display="flex" alignItems="center" justifyContent="flex-end">
-              <Button color="primary" onClick={handleCreateCourseClicked}>
+              <Button color="primary" onClick={modal.open}>
                 Create course
               </Button>
             </Box>
@@ -62,7 +56,7 @@ const Courses = () => {
           </Grid>
         </Grid>
       </Box>
-      <CreateCourseModal open={isModalActive} onClose={handleCloseModal} />
+      <CreateCourseModal open={modal.visible} onClose={modal.close} />
     </Page>
   );
 };
