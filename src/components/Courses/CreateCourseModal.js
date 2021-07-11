@@ -1,21 +1,31 @@
-import Button from '@material-ui/core/Button';
-import Modal from '../UI/Modal';
+import Grid from '@material-ui/core/Grid';
+import Dialog from '../UI/Dialog';
 import TextField from '../UI/TextField';
+import SuccessButton from '../UI/Buttons/SuccessButton';
 
 const CreateCourseModal = (props) => {
   return (
-    <Modal
+    <Dialog
       {...props}
       title="Create course"
       maxWidth="md"
-      actions={
-        <Button variant="contained" color="primary">
-          Create
-        </Button>
-      }
+      actions={<SuccessButton>Create</SuccessButton>}
     >
-      <TextField label="Name" />
-    </Modal>
+      <Grid container spacing={1}>
+        <Grid item md={4}>
+          <TextField label="Name" fullWidth />
+        </Grid>
+        <Grid item md={4}>
+          <TextField label="Professor" fullWidth />
+        </Grid>
+        <Grid item md={4}>
+          <TextField label="Year" fullWidth />
+        </Grid>
+        <Grid item md={12}>
+          <TextField label="Description" fullWidth multiline row={4} />
+        </Grid>
+      </Grid>
+    </Dialog>
   );
 };
 
