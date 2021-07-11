@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Page from './Page';
 
 /**
  * Create the styles that can be used by the MainContent component
@@ -35,7 +36,9 @@ const MainContent = (props) => {
   return (
     <React.Fragment>
       <div className={classes.toolbar}></div>
-      <main className={mainClasses.join(' ')}>{props.children}</main>
+      <main className={mainClasses.join(' ')}>
+        <Page>{props.children}</Page>
+      </main>
     </React.Fragment>
   );
 };

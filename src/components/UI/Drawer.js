@@ -17,16 +17,14 @@ import { useRouter } from 'next/router';
  *
  * @returns {object}
  */
-const useStyles = makeStyles((theme) => {
-  return {
-    drawerWidth: {
-      width: '240px',
-    },
-    selectedMenuItem: {
-      borderRight: `3px solid ${theme.palette.primary.light}`,
-    },
-  };
-});
+const useStyles = makeStyles((theme) => ({
+  drawerWidth: {
+    width: '240px',
+  },
+  selectedMenuItem: {
+    borderRight: `3px solid ${theme.palette.primary.light}`,
+  },
+}));
 
 /**
  * Renders the side drawer of the application

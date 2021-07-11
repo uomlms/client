@@ -1,4 +1,5 @@
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core';
 
 /**
@@ -25,7 +26,13 @@ const useStyles = makeStyles(() => ({
 const Page = (props) => {
   const classes = useStyles();
 
-  return <Paper className={classes.page}>{props.children}</Paper>;
+  return (
+    <Paper className={classes.page}>
+      <Box flexGrow={1} display="flex" width={1}>
+        {props.children}
+      </Box>
+    </Paper>
+  );
 };
 
 export default Page;

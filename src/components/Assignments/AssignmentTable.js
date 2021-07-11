@@ -39,7 +39,7 @@ const AssignmentTable = ({ assignments }) => {
         <TableCell>{assignment.name}</TableCell>
         <TableCell>{assignment.description}</TableCell>
         <TableCell>{assignment.dueDate}</TableCell>
-        <TableCell align="right" style={{ width: '20%' }}>
+        <TableCell align="right">
           <AssignmentActions>{assignment.actions}</AssignmentActions>
         </TableCell>
       </TableRow>
