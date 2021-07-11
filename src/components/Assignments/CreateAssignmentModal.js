@@ -3,6 +3,12 @@ import Dialog from '../UI/Dialog';
 import TextField from '../UI/TextField';
 import SuccessButton from '../UI/Buttons/SuccessButton';
 
+/**
+ * Creates the 'Create Assignment' modal from which the user can create an assignment
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const CreateAssignmentModal = (props) => {
   return (
     <Dialog

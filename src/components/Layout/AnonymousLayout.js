@@ -2,6 +2,12 @@ import React from 'react';
 import AppBar from '../UI/AppBar';
 import MainContent from '../UI/MainContent';
 
+/**
+ * Renders the layout that an anonymous user will see
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const AnonymousLayout = (props) => {
   return (
     <React.Fragment>

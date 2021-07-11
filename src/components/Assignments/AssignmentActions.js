@@ -5,7 +5,12 @@ import HistoryIcon from '@material-ui/icons/History';
 import PublishIcon from '@material-ui/icons/Publish';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const AssignmentActions = (props) => {
+/**
+ * Renders the actions that can be executed for each assignment
+ *
+ * @returns {JSX.Element}
+ */
+const AssignmentActions = () => {
   return (
     <Box display="flex" justifyContent="flex-end">
       <Box mx={1}>

@@ -1,6 +1,11 @@
 import { makeStyles } from '@material-ui/core';
 import Button from './Button';
 
+/**
+ * Creates the styles that can be used by the SuccessButton component
+ *
+ * @returns {object}
+ */
 const useStyles = makeStyles((theme) => ({
   successButton: {
     backgroundColor: theme.palette.success.main,
@@ -13,6 +18,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Renders a success button, using the success colors of the theme's palette
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const SuccessButton = (props) => {
   const classes = useStyles();
 

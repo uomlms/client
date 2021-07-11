@@ -12,6 +12,9 @@ import { useState } from 'react';
 const useRequest = ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);
 
+  /**
+   * Executes a request on the given url
+   */
   const sendRequest = async () => {
     try {
       setErrors(null);

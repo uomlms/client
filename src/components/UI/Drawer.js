@@ -12,6 +12,11 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+/**
+ * Creates the style that can be used by the Drawer component
+ *
+ * @returns {object}
+ */
 const useStyles = makeStyles((theme) => {
   return {
     drawerWidth: {
@@ -23,6 +28,12 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
+/**
+ * Renders the side drawer of the application
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const Drawer = (props) => {
   const classes = useStyles();
   const router = useRouter();

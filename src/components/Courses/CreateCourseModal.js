@@ -3,6 +3,12 @@ import Dialog from '../UI/Dialog';
 import TextField from '../UI/TextField';
 import SuccessButton from '../UI/Buttons/SuccessButton';
 
+/**
+ * Renders the Create course modal from which the use can create a new course
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const CreateCourseModal = (props) => {
   return (
     <Dialog

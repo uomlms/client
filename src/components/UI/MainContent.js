@@ -1,27 +1,35 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => {
-  return {
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    mainContent: {
-      height: '100%',
+/**
+ * Create the styles that can be used by the MainContent component
+ *
+ * @returns {object}
+ */
+const useStyles = makeStyles((theme) => ({
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  mainContent: {
+    height: '100%',
+  },
+  appBarMargin: {
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.drawer.smWidth,
     },
-    appBarMargin: {
-      [theme.breakpoints.down('sm')]: {
-        marginLeft: theme.drawer.smWidth,
-      },
-      [theme.breakpoints.up('md')]: {
-        marginLeft: theme.drawer.mdWidth,
-      },
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.drawer.mdWidth,
     },
-  };
-});
+  },
+}));
 
+/**
+ * Renders the main content of the current page
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const MainContent = (props) => {
   const classes = useStyles();
-
   const mainClasses = [classes.mainContent, props.isAuthenticated ? classes.appBarMargin : null];
 
   return (

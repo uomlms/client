@@ -8,12 +8,23 @@ import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core';
 import AssignmentActions from './AssignmentActions';
 
+/**
+ * Creates the styles that can be used by the AssignmentTable component
+ *
+ * @returns {object}
+ */
 const useStyles = makeStyles((theme) => ({
   theadLight: {
     backgroundColor: theme.palette.grey[300],
   },
 }));
 
+/**
+ * Renders the table where the assignments of the selected course are displayed
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const AssignmentTable = ({ assignments }) => {
   const classes = useStyles();
 

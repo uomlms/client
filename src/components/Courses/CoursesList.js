@@ -3,12 +3,23 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core';
 
+/**
+ * Creates the style that can be used by the CoursesList component
+ *
+ * @returns {object}
+ */
 const useStyles = makeStyles((theme) => ({
   selectedCourseItem: {
     borderRight: `3px solid ${theme.palette.secondary.light}`,
   },
 }));
 
+/**
+ * Renders the list of the availiable courses
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const CoursesList = ({ courses, selectedCourse, handleSelectCourse }) => {
   const classes = useStyles();
 

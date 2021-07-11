@@ -8,6 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
 
+/**
+ * Creates the styles that can be used by the AppBar component
+ *
+ * @returns {object}
+ */
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
@@ -17,9 +22,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Renders the app bar of the application with different content based on if the
+ * user is authenticated or not
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const AppBar = (props) => {
   const classes = useStyles();
 
+  /**
+   * The buttons shown if the user is not authenticated
+   *
+   * @const {JSX.Element} anonymousButtons
+   */
   const anonymousButtons = (
     <React.Fragment>
       <Button color="inherit">
@@ -31,6 +48,11 @@ const AppBar = (props) => {
     </React.Fragment>
   );
 
+  /**
+   * The buttons shown if the user is authenticated
+   *
+   * @const {JSX.Element} authenticatedButtons
+   */
   const authenticatedButtons = (
     <React.Fragment>
       <Typography className={classes.buttonTypography}>{props.currentUser?.name} |</Typography>

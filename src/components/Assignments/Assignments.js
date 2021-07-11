@@ -5,6 +5,12 @@ import AssignmentTable from './AssignmentTable';
 import CreateAssignmentModal from './CreateAssignmentModal';
 import useModal from '../../hooks/use-modal';
 
+/**
+ * Renders the information and actions for the assignments of the selected course
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const Assignments = ({ assignments }) => {
   const modal = useModal();
 

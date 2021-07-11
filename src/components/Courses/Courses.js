@@ -12,17 +12,28 @@ import useModal from '../../hooks/use-modal';
 
 import COURSES from './DummyCourses';
 
+/**
+ * The Courses page displayed in the /courses route
+ *
+ * @returns {JSX.Element}
+ */
 const Courses = () => {
   const [selectedCourse, setSelectedCourse] = useState();
   const modal = useModal();
   const courses = COURSES;
 
   useEffect(() => {
+    // Sets the default selected course to be the first one when the component is rendered
     if (courses.length >= 0) {
       setSelectedCourse(courses[0]);
     }
   }, []);
 
+  /**
+   * Sets the new selected course in the component's state
+   *
+   * @param {object} newselectedCourse
+   */
   const handleSelectCourse = (newselectedCourse) => {
     setSelectedCourse(newselectedCourse);
   };
