@@ -1,6 +1,6 @@
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import Button from '../UI/Buttons/Button';
 import AssignmentTable from './AssignmentTable';
 
 const Assignments = ({ assignments }) => {
@@ -12,9 +12,7 @@ const Assignments = ({ assignments }) => {
             Assignmnents
           </Typography>
         </Box>
-        <Button variant="contained" color="primary">
-          Create assignment
-        </Button>
+        <Button color="primary">Create assignment</Button>
       </Box>
       <AssignmentTable assignments={assignments} />
     </Box>

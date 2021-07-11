@@ -18,9 +18,7 @@ const CourseDetails = ({ selectedCourse }) => {
           }}
         />
       </Box>
-      <Box>
-        <Assignments assignments={selectedCourse?.assignments} />
-      </Box>
+      <Assignments assignments={selectedCourse?.assignments} />
     </React.Fragment>
   );
 };

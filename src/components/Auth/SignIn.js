@@ -4,12 +4,12 @@ import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
 import TextField from '../UI/TextField';
+import Button from '../UI/Buttons/Button';
 import useRequest from '../../hooks/use-request';
 
 /**
@@ -89,7 +89,7 @@ const SignIn = () => {
                 />
               </Grid>
               <Grid item>
-                <Button color="primary" variant="contained" fullWidth onClick={handleSignInClicked}>
+                <Button color="primary" fullWidth onClick={handleSignInClicked}>
                   Sign in
                 </Button>
               </Grid>

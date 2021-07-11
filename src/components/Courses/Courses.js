@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import Page from '../UI/Page';
+import Button from '../UI/Buttons/Button';
 import TextField from '../UI/TextField';
 import CoursesList from './CoursesList';
 import CourseDetails from './CourseDetails';
@@ -45,7 +45,7 @@ const Courses = () => {
           </Grid>
           <Grid item md={9}>
             <Box height={1} display="flex" alignItems="center" justifyContent="flex-end">
-              <Button color="primary" variant="contained" onClick={handleCreateCourseClicked}>
+              <Button color="primary" onClick={handleCreateCourseClicked}>
                 Create course
               </Button>
             </Box>
