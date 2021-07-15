@@ -3,6 +3,7 @@ const COURSES = [
     id: '1',
     name: 'Course 1',
     professor: 'course 1 professor',
+    semester: '1',
     description: 'course 1 description',
     assignments: [
       {
@@ -26,6 +27,7 @@ const COURSES = [
     id: '2',
     name: 'Course 2',
     professor: 'course 2 professor',
+    semester: '1',
     description: 'course 2 description',
     assignments: [
       {
@@ -44,6 +46,7 @@ const COURSES = [
     id: '3',
     name: 'Course 3',
     professor: 'course 3 professor',
+    semester: '1',
     description: 'course 3 description',
     assignments: [
       {
@@ -62,6 +65,7 @@ const COURSES = [
     id: '4',
     name: 'Course 4',
     professor: 'course 4 professor',
+    semester: '1',
     description: 'course 6 description',
   },
 ];

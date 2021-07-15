@@ -13,22 +13,12 @@ import CoursesContext from './courses-context';
  */
 const coursesReducer = (state, action) => {
   if (action.type === 'CREATE') {
-    console.log('create course action', state);
-    // const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
-    // const existingCartItemIndex = state.items.findIndex((item) => item.id === action.item.id);
-    // const existingCartItem = state.items[existingCartItemIndex];
-    // let updatedItems;
-    // if (existingCartItem) {
-    //   const updatedItem = {
-    //     ...existingCartItem,
-    //     amount: existingCartItem.amount + action.item.amount,
-    //   };
-    //   updatedItems = [...state.items];
-    //   updatedItems[existingCartItemIndex] = updatedItem;
-    // } else {
-    //   updatedItems = state.items.concat(action.item);
-    // }
-    return state;
+    const newCourse = { ...action.course };
+    const updatedCourses = [...state];
+    // temporary id for courses length + 1
+    newCourse.id = updatedCourses.length + 1;
+    updatedCourses.push(newCourse);
+    return updatedCourses;
   }
 
   if (action.type === 'DELETE') {
@@ -59,6 +49,11 @@ const coursesReducer = (state, action) => {
 const CoursesProvider = (props) => {
   const [coursesState, dispatchCartAction] = useReducer(coursesReducer, props.courses);
 
+  /**
+   * Creates the given course
+   *
+   * @param {object} course
+   */
   const createCourse = (course) => {
     dispatchCartAction({ type: 'CREATE', course: course });
   };
