@@ -1,7 +1,9 @@
+import { useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '../UI/Dialog';
 import TextField from '../UI/TextField';
 import SuccessButton from '../UI/Buttons/SuccessButton';
+import CoursesContext from '../../store/courses-context';
 
 /**
  * Renders the Create course modal from which the use can create a new course
@@ -10,12 +12,19 @@ import SuccessButton from '../UI/Buttons/SuccessButton';
  * @returns {JSX.Element}
  */
 const CreateCourseModal = (props) => {
+  const coursesCtx = useContext(CoursesContext);
+
+  const handleCreateCourseClicked = () => {
+    coursesCtx.createCourse();
+    props.onClose();
+  };
+
   return (
     <Dialog
       {...props}
       title="Create course"
       maxWidth="md"
-      actions={<SuccessButton>Create</SuccessButton>}
+      actions={<SuccessButton onClick={handleCreateCourseClicked}>Create</SuccessButton>}
     >
       <Grid container spacing={1}>
         <Grid item md={4}>

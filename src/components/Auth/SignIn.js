@@ -51,7 +51,7 @@ const SignIn = () => {
     ));
 
   return (
-    <Grid className="h-100" container alignContent="center">
+    <Box flexGrow={1} display="flex" alignItems="center">
       <Container maxWidth="sm">
         {errorMessages}
 
@@ -82,12 +82,12 @@ const SignIn = () => {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </Grid>
-              <Grid item>
+              {/* <Grid item>
                 <FormControlLabel
                   control={<Checkbox name="remember-me-checkbox" color="primary" />}
                   label="Remember me"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item>
                 <Button color="primary" fullWidth onClick={handleSignInClicked}>
                   Sign in
@@ -97,7 +97,7 @@ const SignIn = () => {
           </Box>
         </Card>
       </Container>
-    </Grid>
+    </Box>
   );
 };
 

@@ -51,7 +51,7 @@ const SignUp = () => {
     ));
 
   return (
-    <Grid className="h-100" container alignContent="center">
+    <Box flexGrow={1} display="flex" alignItems="center">
       <Container maxWidth="sm">
         {errorMessages}
 
@@ -100,7 +100,7 @@ const SignUp = () => {
           </Box>
         </Card>
       </Container>
-    </Grid>
+    </Box>
   );
 };
 

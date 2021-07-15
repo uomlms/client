@@ -1,7 +1,9 @@
+import { useContext } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core';
+import CoursesContext from '../../store/courses-context';
 
 /**
  * Creates the style that can be used by the CoursesList component
@@ -20,12 +22,13 @@ const useStyles = makeStyles((theme) => ({
  * @param {object} props
  * @returns {JSX.Element}
  */
-const CoursesList = ({ courses, selectedCourse, handleSelectCourse }) => {
+const CoursesList = ({ selectedCourse, handleSelectCourse }) => {
   const classes = useStyles();
+  const coursesCtx = useContext(CoursesContext);
 
   return (
     <List>
-      {courses.map((course) => (
+      {coursesCtx.courses.map((course) => (
         <ListItem
           button
           key={course.id}

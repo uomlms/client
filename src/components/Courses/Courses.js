@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
@@ -8,8 +8,7 @@ import CoursesList from './CoursesList';
 import CourseDetails from './CourseDetails';
 import CreateCourseModal from './CreateCourseModal';
 import useModal from '../../hooks/use-modal';
-
-import COURSES from './DummyCourses';
+import CoursesContext from '../../store/courses-context';
 
 /**
  * The Courses page displayed in the /courses route
@@ -18,13 +17,13 @@ import COURSES from './DummyCourses';
  */
 const Courses = () => {
   const [selectedCourse, setSelectedCourse] = useState();
+  const coursesCtx = useContext(CoursesContext);
   const modal = useModal();
-  const courses = COURSES;
 
   useEffect(() => {
     // Sets the default selected course to be the first one when the component is rendered
-    if (courses.length >= 0) {
-      setSelectedCourse(courses[0]);
+    if (coursesCtx.courses.length >= 0) {
+      setSelectedCourse(coursesCtx.courses[0]);
     }
   }, []);
 
@@ -54,11 +53,7 @@ const Courses = () => {
           </Box>
         </Grid>
         <Grid item md={3}>
-          <CoursesList
-            selectedCourse={selectedCourse}
-            courses={courses}
-            handleSelectCourse={handleSelectCourse}
-          />
+          <CoursesList selectedCourse={selectedCourse} handleSelectCourse={handleSelectCourse} />
         </Grid>
         <Grid item md={9}>
           <CourseDetails selectedCourse={selectedCourse} />
