@@ -4,6 +4,7 @@ import Dialog from '../UI/Dialog';
 import TextField from '../UI/TextField';
 import SuccessButton from '../UI/Buttons/SuccessButton';
 import CoursesContext from '../../store/courses-context';
+import useCourseData from '../../hooks/use-course-data';
 
 /**
  * Renders the Create course modal from which the use can create a new course
@@ -12,35 +13,16 @@ import CoursesContext from '../../store/courses-context';
  * @returns {JSX.Element}
  */
 const CreateCourseModal = (props) => {
-  const emptyCourseState = {
-    name: '',
-    professor: '',
-    semester: '',
-    description: '',
-  };
-  const [newCourse, setNewCourse] = useState(emptyCourseState);
+  const { courseData, handleCourseDataChanged, clearCourseData } = useCourseData();
   const coursesCtx = useContext(CoursesContext);
 
   /**
    * Handles the click event of the Create button. Creates a course and closes the modal.
    */
   const handleCreateCourseClicked = () => {
-    coursesCtx.createCourse(newCourse);
-    setNewCourse(emptyCourseState);
+    coursesCtx.createCourse(courseData);
+    clearCourseData();
     props.onClose();
-  };
-
-  /**
-   * Handles the change event of the input elements in the modal and updates
-   * the new course state
-   *
-   * @param {object} event
-   * @param {string} field
-   */
-  const handleNewCourseChanged = (event, field) => {
-    const updatedNewCourse = { ...newCourse };
-    updatedNewCourse[field] = event.target.value;
-    setNewCourse(updatedNewCourse);
   };
 
   return (
@@ -55,16 +37,16 @@ const CreateCourseModal = (props) => {
           <TextField
             label="Name"
             fullWidth
-            value={newCourse.name}
-            onChange={(event) => handleNewCourseChanged(event, 'name')}
+            value={courseData.name}
+            onChange={(event) => handleCourseDataChanged(event, 'name')}
           />
         </Grid>
         <Grid item md={4}>
           <TextField
             label="Professor"
             fullWidth
-            value={newCourse.professor}
-            onChange={(event) => handleNewCourseChanged(event, 'professor')}
+            value={courseData.professor}
+            onChange={(event) => handleCourseDataChanged(event, 'professor')}
           />
         </Grid>
         <Grid item md={4}>
@@ -72,8 +54,8 @@ const CreateCourseModal = (props) => {
             type="number"
             label="Semester"
             fullWidth
-            value={newCourse.semester}
-            onChange={(event) => handleNewCourseChanged(event, 'semester')}
+            value={courseData.semester}
+            onChange={(event) => handleCourseDataChanged(event, 'semester')}
           />
         </Grid>
         <Grid item md={12}>
@@ -82,8 +64,8 @@ const CreateCourseModal = (props) => {
             fullWidth
             multiline
             row={4}
-            value={newCourse.description}
-            onChange={(event) => handleNewCourseChanged(event, 'description')}
+            value={courseData.description}
+            onChange={(event) => handleCourseDataChanged(event, 'description')}
           />
         </Grid>
       </Grid>

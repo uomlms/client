@@ -21,6 +21,11 @@ const COURSES = [
         description: 'description of assignment',
         dueDate: '2021-07-09',
       },
+      {
+        title: 'assignment 7',
+        description: 'description of assignment',
+        dueDate: '2021-07-09',
+      },
     ],
   },
   {
@@ -54,19 +59,7 @@ const COURSES = [
         description: 'description of assignment',
         dueDate: '2021-07-09',
       },
-      {
-        title: 'assignment 7',
-        description: 'description of assignment',
-        dueDate: '2021-07-09',
-      },
     ],
-  },
-  {
-    id: '4',
-    name: 'Course 4',
-    professor: 'course 4 professor',
-    semester: '1',
-    description: 'course 6 description',
   },
 ];
 
