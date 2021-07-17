@@ -5,6 +5,7 @@ import CoursesContext from './courses-context';
  * Defines the actions that can be applied to the Courses Context
  * The actions are:
  *  - CREATE
+ *  - UPDATE
  *  - DELETE
  *
  * @param {object} state
@@ -28,7 +29,16 @@ const coursesReducer = (state, action) => {
     // const existingCourseIndex = state.findIndex((course) => course.id === action.id);
     // const existingCourse = updateCourses[existingCourseIndex];
     // delete existingCourse;
-    updatedCourses = state.filter((course) => course.id !== action.id);
+    updatedCourses = updatedCourses.filter((course) => course.id !== action.id);
+    return updatedCourses;
+  }
+
+  // Implements the update of a course
+  if (action.type === 'UPDATE') {
+    const existingCourseIndex = updatedCourses.findIndex(
+      (course) => course.id === action.course.id
+    );
+    updatedCourses[existingCourseIndex] = { ...action.course };
     return updatedCourses;
   }
 
@@ -62,9 +72,19 @@ const CoursesProvider = (props) => {
     dispatchCourseAction({ type: 'DELETE', id: id });
   };
 
+  /**
+   * Updates the given course
+   *
+   * @param {object} course
+   */
+  const updateCourse = (course) => {
+    dispatchCourseAction({ type: 'UPDATE', course: course });
+  };
+
   const coursesContext = {
     courses: coursesState,
     createCourse: createCourse,
+    updateCourse: updateCourse,
     deleteCourse: deleteCourse,
   };
 

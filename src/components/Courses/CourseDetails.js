@@ -25,6 +25,14 @@ const CourseDetails = ({ selectedCourse }) => {
   }, [selectedCourse]);
 
   /**
+   * Handles the click event of the Save button. Calls the updateCourse function
+   * from the CourseContext
+   */
+  const handleSaveClicked = () => {
+    coursesCtx.updateCourse(courseData);
+  };
+
+  /**
    * Handles the click event of the Delete button. Calls the deleteCourse function
    * from the CourseContext.
    */
@@ -85,7 +93,7 @@ const CourseDetails = ({ selectedCourse }) => {
         <Grid item md={12}>
           <Box display="flex" justifyContent="flex-end">
             <Box mr={1}>
-              <SuccessButton>Save</SuccessButton>
+              <SuccessButton onClick={handleSaveClicked}>Save</SuccessButton>
             </Box>
             <Box ml={1}>
               <DangerButton onClick={handleDeleteClicked}>Delete</DangerButton>
