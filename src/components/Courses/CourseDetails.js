@@ -6,7 +6,9 @@ import SuccessButton from '../UI/Buttons/SuccessButton';
 import DangerButton from '../UI/Buttons/DangerButton';
 import Assignments from '../Assignments/Assignments';
 import useCourseData from '../../hooks/use-course-data';
+import useModal from '../../hooks/use-modal';
 import CoursesContext from '../../store/courses-context';
+import DeleteCourseModal from './DeleteCourseModal';
 
 /**
  * Renders the details of the selected course
@@ -15,6 +17,7 @@ import CoursesContext from '../../store/courses-context';
  * @returns {JSX.Element}
  */
 const CourseDetails = ({ selectedCourse }) => {
+  const modal = useModal();
   const coursesCtx = useContext(CoursesContext);
   const { courseData, setCourseData, handleCourseDataChanged } = useCourseData({
     ...selectedCourse,
@@ -38,6 +41,7 @@ const CourseDetails = ({ selectedCourse }) => {
    */
   const handleDeleteClicked = () => {
     coursesCtx.deleteCourse(courseData.id);
+    modal.close();
   };
 
   return (
@@ -96,12 +100,18 @@ const CourseDetails = ({ selectedCourse }) => {
               <SuccessButton onClick={handleSaveClicked}>Save</SuccessButton>
             </Box>
             <Box ml={1}>
-              <DangerButton onClick={handleDeleteClicked}>Delete</DangerButton>
+              <DangerButton onClick={() => modal.open()}>Delete</DangerButton>
             </Box>
           </Box>
         </Grid>
       </Grid>
       <Assignments assignments={selectedCourse?.assignments} />
+      <DeleteCourseModal
+        open={modal.visible}
+        onClose={modal.close}
+        course={selectedCourse}
+        handleDeleteClicked={handleDeleteClicked}
+      />
     </React.Fragment>
   );
 };

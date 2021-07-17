@@ -2,6 +2,13 @@ import Typography from '@material-ui/core/Typography';
 import Dialog from '../UI/Dialog';
 import DangerButton from '../UI/Buttons/DangerButton';
 
+/**
+ * Renders the delete assignment modal that asks the users if they are sure they
+ * want to delete the selected assignment.
+ *
+ * @param {object} props
+ * @returns {JSX.Element}
+ */
 const DeleteAssignmentModal = (props) => {
   const { assignment } = props;
 
