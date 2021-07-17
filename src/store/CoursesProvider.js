@@ -12,29 +12,24 @@ import CoursesContext from './courses-context';
  * @returns {object}
  */
 const coursesReducer = (state, action) => {
+  let updatedCourses = [...state];
+
+  // Implements the creation of a course
   if (action.type === 'CREATE') {
     const newCourse = { ...action.course };
-    const updatedCourses = [...state];
     // temporary id for courses length + 1
     newCourse.id = updatedCourses.length + 1;
     updatedCourses.push(newCourse);
     return updatedCourses;
   }
 
+  // Implements the deletion of a course
   if (action.type === 'DELETE') {
-    console.log('delete course action', state);
-    // const existingCartItemIndex = state.items.findIndex((item) => item.id === action.id);
-    // const existingCartItem = state.items[existingCartItemIndex];
-    // const updatedTotalAmount = state.totalAmount - existingCartItem.price;
-    // let updatedItems;
-    // if (existingCartItem.amount === 1) {
-    //   updatedItems = state.items.filter((item) => item.id !== action.id);
-    // } else {
-    //   const updatedItem = { ...existingCartItem, amount: existingCartItem.amount - 1 };
-    //   updatedItems = [...state.items];
-    //   updatedItems[existingCartItemIndex] = updatedItem;
-    // }
-    return state;
+    // const existingCourseIndex = state.findIndex((course) => course.id === action.id);
+    // const existingCourse = updateCourses[existingCourseIndex];
+    // delete existingCourse;
+    updatedCourses = state.filter((course) => course.id !== action.id);
+    return updatedCourses;
   }
 
   return state;
@@ -47,7 +42,7 @@ const coursesReducer = (state, action) => {
  * @returns {JSX.Element}
  */
 const CoursesProvider = (props) => {
-  const [coursesState, dispatchCartAction] = useReducer(coursesReducer, props.courses);
+  const [coursesState, dispatchCourseAction] = useReducer(coursesReducer, props.courses);
 
   /**
    * Creates the given course
@@ -55,11 +50,16 @@ const CoursesProvider = (props) => {
    * @param {object} course
    */
   const createCourse = (course) => {
-    dispatchCartAction({ type: 'CREATE', course: course });
+    dispatchCourseAction({ type: 'CREATE', course: course });
   };
 
+  /**
+   * Deletes the course with the given id
+   *
+   * @param {string} id
+   */
   const deleteCourse = (id) => {
-    dispatchCartAction({ type: 'DELETE', id: id });
+    dispatchCourseAction({ type: 'DELETE', id: id });
   };
 
   const coursesContext = {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import TextField from '../UI/TextField';
@@ -6,6 +6,7 @@ import SuccessButton from '../UI/Buttons/SuccessButton';
 import DangerButton from '../UI/Buttons/DangerButton';
 import Assignments from '../Assignments/Assignments';
 import useCourseData from '../../hooks/use-course-data';
+import CoursesContext from '../../store/courses-context';
 
 /**
  * Renders the details of the selected course
@@ -14,6 +15,7 @@ import useCourseData from '../../hooks/use-course-data';
  * @returns {JSX.Element}
  */
 const CourseDetails = ({ selectedCourse }) => {
+  const coursesCtx = useContext(CoursesContext);
   const { courseData, setCourseData, handleCourseDataChanged } = useCourseData({
     ...selectedCourse,
   });
@@ -21,6 +23,14 @@ const CourseDetails = ({ selectedCourse }) => {
   useEffect(() => {
     setCourseData({ ...selectedCourse });
   }, [selectedCourse]);
+
+  /**
+   * Handles the click event of the Delete button. Calls the deleteCourse function
+   * from the CourseContext.
+   */
+  const handleDeleteClicked = () => {
+    coursesCtx.deleteCourse(courseData.id);
+  };
 
   return (
     <React.Fragment>
@@ -78,7 +88,7 @@ const CourseDetails = ({ selectedCourse }) => {
               <SuccessButton>Save</SuccessButton>
             </Box>
             <Box ml={1}>
-              <DangerButton>Delete</DangerButton>
+              <DangerButton onClick={handleDeleteClicked}>Delete</DangerButton>
             </Box>
           </Box>
         </Grid>

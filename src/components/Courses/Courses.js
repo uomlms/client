@@ -25,15 +25,15 @@ const Courses = () => {
     if (coursesCtx.courses.length >= 0) {
       setSelectedCourse(coursesCtx.courses[0]);
     }
-  }, []);
+  }, [coursesCtx.courses]);
 
   /**
    * Sets the new selected course in the component's state
    *
-   * @param {object} newselectedCourse
+   * @param {object} newSelectedCourse
    */
-  const handleSelectCourse = (newselectedCourse) => {
-    setSelectedCourse(newselectedCourse);
+  const handleSelectCourse = (newSelectedCourse) => {
+    setSelectedCourse(newSelectedCourse);
   };
 
   return (
