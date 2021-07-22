@@ -7,11 +7,16 @@ import TextField from '../UI/TextField';
  * @param {object} props
  * @returns {JSX.Element}
  */
-const AssignmentForm = ({ assignment }) => {
+const AssignmentForm = ({ assignment, handleAssignmentFieldChanged }) => {
   return (
     <Grid container spacing={1}>
       <Grid item md={6}>
-        <TextField label="Title" fullWidth value={assignment?.title ?? ''} />
+        <TextField
+          label="Title"
+          fullWidth
+          value={assignment?.title ?? ''}
+          onChange={(event) => handleAssignmentFieldChanged(event, 'title')}
+        />
       </Grid>
       <Grid item md={6}>
         <TextField
@@ -22,6 +27,7 @@ const AssignmentForm = ({ assignment }) => {
             shrink: true,
           }}
           value={assignment?.dueDate ?? ''}
+          onChange={(event) => handleAssignmentFieldChanged(event, 'dueDate')}
         />
       </Grid>
       <Grid item md={12}>
@@ -31,6 +37,7 @@ const AssignmentForm = ({ assignment }) => {
           multiline
           row={4}
           value={assignment?.description ?? ''}
+          onChange={(event) => handleAssignmentFieldChanged(event, 'description')}
         />
       </Grid>
       <Grid item md={12}>

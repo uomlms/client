@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
@@ -7,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core';
 import AssignmentActions from './AssignmentActions';
+import AssignmentsContext from '../../store/assignments-context';
 
 /**
  * Creates the styles that can be used by the AssignmentTable component
@@ -25,16 +27,17 @@ const useStyles = makeStyles((theme) => ({
  * @param {object} props
  * @returns {JSX.Element}
  */
-const AssignmentTable = ({ assignments }) => {
+const AssignmentTable = () => {
   const classes = useStyles();
+  const assignmentsCtx = useContext(AssignmentsContext);
 
   let assignmentsRows = (
     <TableRow>
       <TableCell>No assignments for the selected course</TableCell>
     </TableRow>
   );
-  if (assignments) {
-    assignmentsRows = assignments.map((assignment, index) => (
+  if (assignmentsCtx.assignments) {
+    assignmentsRows = assignmentsCtx.assignments.map((assignment, index) => (
       <TableRow key={index}>
         <TableCell>{assignment.title}</TableCell>
         <TableCell>{assignment.description}</TableCell>

@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '../UI/Buttons/Button';
 import AssignmentTable from './AssignmentTable';
 import CreateAssignmentModal from './CreateAssignmentModal';
 import useModal from '../../hooks/use-modal';
+import AssignmentsContext from '../../store/assignments-context';
 import ASSIGNMENTS from './DummyAssignments';
 
 /**
@@ -14,12 +15,12 @@ import ASSIGNMENTS from './DummyAssignments';
  * @returns {JSX.Element}
  */
 const Assignments = ({ course }) => {
-  const [assignments, setAssignments] = useState();
   const modal = useModal();
+  const assignmentsCtx = useContext(AssignmentsContext);
 
   useEffect(() => {
-    const newAssignments = ASSIGNMENTS.filter((assignment) => assignment.course_id === course?.id);
-    setAssignments(newAssignments);
+    const assignments = ASSIGNMENTS.filter((assignment) => assignment.course_id === course?.id);
+    assignmentsCtx.set(assignments);
   }, [course]);
 
   return (
@@ -34,7 +35,7 @@ const Assignments = ({ course }) => {
           Create assignment
         </Button>
       </Box>
-      <AssignmentTable assignments={assignments} />
+      <AssignmentTable />
       <CreateAssignmentModal open={modal.visible} onClose={modal.close} />
     </Box>
   );

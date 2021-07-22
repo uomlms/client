@@ -9,6 +9,7 @@ import useCourseData from '../../hooks/use-course-data';
 import useModal from '../../hooks/use-modal';
 import CoursesContext from '../../store/courses-context';
 import DeleteCourseModal from './DeleteCourseModal';
+import AssignmentsProvider from '../../store/AssignmentsProvider';
 
 /**
  * Renders the details of the selected course
@@ -105,7 +106,9 @@ const CourseDetails = ({ selectedCourse }) => {
           </Box>
         </Grid>
       </Grid>
-      <Assignments course={selectedCourse} />
+      <AssignmentsProvider>
+        <Assignments course={selectedCourse} />
+      </AssignmentsProvider>
       <DeleteCourseModal
         open={modal.visible}
         onClose={modal.close}
