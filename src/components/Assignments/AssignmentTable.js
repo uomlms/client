@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {object} props
  * @returns {JSX.Element}
  */
-const AssignmentTable = (props) => {
+const AssignmentTable = ({ assignments }) => {
   const classes = useStyles();
 
   let assignmentsRows = (
@@ -33,20 +33,14 @@ const AssignmentTable = (props) => {
       <TableCell>No assignments for the selected course</TableCell>
     </TableRow>
   );
-  if (props.assignments) {
-    assignmentsRows = props.assignments.map((assignment, index) => (
+  if (assignments) {
+    assignmentsRows = assignments.map((assignment, index) => (
       <TableRow key={index}>
         <TableCell>{assignment.title}</TableCell>
         <TableCell>{assignment.description}</TableCell>
         <TableCell>{assignment.dueDate}</TableCell>
         <TableCell align="right" style={{ width: '20%' }}>
-          <AssignmentActions
-            assignment={assignment}
-            onEditAssignment={props.onEditAssignment}
-            onDeleteAssignment={props.onDeleteAssignment}
-          >
-            {assignment.actions}
-          </AssignmentActions>
+          <AssignmentActions assignment={assignment}>{assignment.actions}</AssignmentActions>
         </TableCell>
       </TableRow>
     ));

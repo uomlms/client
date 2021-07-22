@@ -105,7 +105,7 @@ const CourseDetails = ({ selectedCourse }) => {
           </Box>
         </Grid>
       </Grid>
-      <Assignments assignments={selectedCourse?.assignments} />
+      <Assignments course={selectedCourse} />
       <DeleteCourseModal
         open={modal.visible}
         onClose={modal.close}
