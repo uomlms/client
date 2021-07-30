@@ -10,6 +10,7 @@ import useModal from '../../hooks/use-modal';
 import CoursesContext from '../../context/courses-context';
 import DeleteCourseModal from './DeleteCourseModal';
 import AssignmentsProvider from '../../context/AssignmentsProvider';
+import useRequest from '../../hooks/use-request';
 
 /**
  * Renders the details of the selected course
@@ -22,6 +23,10 @@ const CourseDetails = ({ selectedCourse }) => {
   const coursesCtx = useContext(CoursesContext);
   const { courseData, setCourseData, handleCourseDataChanged } = useCourseData({
     ...selectedCourse,
+  });
+  const deleteCourseReq = useRequest({
+    url: `/api/courses/${selectedCourse?.id}`,
+    method: 'delete',
   });
 
   useEffect(() => {
@@ -40,8 +45,9 @@ const CourseDetails = ({ selectedCourse }) => {
    * Handles the click event of the Delete button. Calls the deleteCourse function
    * from the CourseContext.
    */
-  const handleDeleteClicked = () => {
-    coursesCtx.deleteCourse(courseData.id);
+  const handleDeleteClicked = async () => {
+    await deleteCourseReq.sendRequest();
+    coursesCtx.deleteCourse(selectedCourse.id);
     modal.close();
   };
 
