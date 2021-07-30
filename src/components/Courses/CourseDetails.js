@@ -7,9 +7,9 @@ import DangerButton from '../UI/Buttons/DangerButton';
 import Assignments from '../Assignments/Assignments';
 import useCourseData from '../../hooks/use-course-data';
 import useModal from '../../hooks/use-modal';
-import CoursesContext from '../../store/courses-context';
+import CoursesContext from '../../context/courses-context';
 import DeleteCourseModal from './DeleteCourseModal';
-import AssignmentsProvider from '../../store/AssignmentsProvider';
+import AssignmentsProvider from '../../context/AssignmentsProvider';
 
 /**
  * Renders the details of the selected course

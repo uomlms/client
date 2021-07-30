@@ -5,7 +5,7 @@ import Button from '../UI/Buttons/Button';
 import AssignmentTable from './AssignmentTable';
 import CreateAssignmentModal from './CreateAssignmentModal';
 import useModal from '../../hooks/use-modal';
-import AssignmentsContext from '../../store/assignments-context';
+import AssignmentsContext from '../../context/assignments-context';
 import ASSIGNMENTS from './DummyAssignments';
 
 /**
@@ -36,7 +36,7 @@ const Assignments = ({ course }) => {
         </Button>
       </Box>
       <AssignmentTable />
-      <CreateAssignmentModal open={modal.visible} onClose={modal.close} />
+      <CreateAssignmentModal open={modal.visible} onClose={modal.close} course={course} />
     </Box>
   );
 };

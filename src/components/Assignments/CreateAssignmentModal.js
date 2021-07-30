@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import AssignmentForm from './AssignmentForm';
 import Dialog from '../UI/Dialog';
 import SuccessButton from '../UI/Buttons/SuccessButton';
-import AssignmentsContext from '../../store/assignments-context';
+import AssignmentsContext from '../../context/assignments-context';
 
 /**
  * Renders the Create Assignment modal from which the user can create an assignment
@@ -15,7 +15,7 @@ const CreateAssignmentModal = (props) => {
     title: '',
     dueDate: '',
     description: '',
-    course_id: 1,
+    course_id: props.course?.id,
   };
   const assignmentsCtx = useContext(AssignmentsContext);
   const [newAssignment, setNewAssignment] = useState(emptyAssignmentState);

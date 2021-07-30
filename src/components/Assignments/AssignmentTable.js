@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core';
 import AssignmentActions from './AssignmentActions';
-import AssignmentsContext from '../../store/assignments-context';
+import AssignmentsContext from '../../context/assignments-context';
 
 /**
  * Creates the styles that can be used by the AssignmentTable component
@@ -36,7 +36,7 @@ const AssignmentTable = () => {
       <TableCell>No assignments for the selected course</TableCell>
     </TableRow>
   );
-  if (assignmentsCtx.assignments) {
+  if (assignmentsCtx.assignments?.length > 0) {
     assignmentsRows = assignmentsCtx.assignments.map((assignment, index) => (
       <TableRow key={index}>
         <TableCell>{assignment.title}</TableCell>

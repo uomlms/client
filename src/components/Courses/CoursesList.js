@@ -3,7 +3,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core';
-import CoursesContext from '../../store/courses-context';
+import CoursesContext from '../../context/courses-context';
 
 /**
  * Creates the style that can be used by the CoursesList component

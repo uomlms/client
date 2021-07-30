@@ -3,8 +3,9 @@ import Grid from '@material-ui/core/Grid';
 import Dialog from '../UI/Dialog';
 import TextField from '../UI/TextField';
 import SuccessButton from '../UI/Buttons/SuccessButton';
-import CoursesContext from '../../store/courses-context';
+import CoursesContext from '../../context/courses-context';
 import useCourseData from '../../hooks/use-course-data';
+import useRequest from '../../hooks/use-request';
 
 /**
  * Renders the Create course modal from which the use can create a new course
@@ -15,12 +16,20 @@ import useCourseData from '../../hooks/use-course-data';
 const CreateCourseModal = (props) => {
   const { courseData, handleCourseDataChanged, clearCourseData } = useCourseData();
   const coursesCtx = useContext(CoursesContext);
+  const { sendRequest, errors } = useRequest({
+    url: '/api/courses',
+    method: 'post',
+    body: { ...courseData },
+  });
 
   /**
    * Handles the click event of the Create button. Creates a course and closes the modal.
    */
-  const handleCreateCourseClicked = () => {
-    coursesCtx.createCourse(courseData);
+  const handleCreateCourseClicked = async () => {
+    const newCourse = await sendRequest();
+    console.log(newCourse);
+
+    coursesCtx.createCourse(newCourse);
     clearCourseData();
     props.onClose();
   };

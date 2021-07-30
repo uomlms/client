@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import CoursesProvider from '../store/CoursesProvider';
+import CoursesProvider from '../context/CoursesProvider';
 import Courses from '../components/Courses/Courses';
-import COURSES from '../components/Courses/DummyCourses';
+import useClient from '../hooks/use-client';
 
 /**
  * The Courses page displayed in the /courses route
@@ -28,16 +28,23 @@ const CoursesPage = ({ currentUser, courses }) => {
 };
 
 /**
- * Generates the courses page statically but re-renders the content if a request
- * is send after 60 seconds
+ * Generates the courses page on the server side every time there is a request
  *
  * @param {object} context
  * @returns {object}
  */
-export const getStaticProps = async (context) => {
+export const getServerSideProps = async (context) => {
+  const client = useClient(context);
+  let courses = [];
+  try {
+    const response = await client.get('/api/courses');
+    courses = response.data;
+  } catch (error) {
+    console.log(error);
+  }
+
   return {
-    props: { courses: COURSES },
-    revalidate: 60,
+    props: { courses: courses },
   };
 };
 

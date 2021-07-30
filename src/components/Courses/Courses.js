@@ -8,7 +8,7 @@ import CoursesList from './CoursesList';
 import CourseDetails from './CourseDetails';
 import CreateCourseModal from './CreateCourseModal';
 import useModal from '../../hooks/use-modal';
-import CoursesContext from '../../store/courses-context';
+import CoursesContext from '../../context/courses-context';
 
 /**
  * The Courses page displayed in the /courses route
