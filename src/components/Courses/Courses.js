@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
@@ -8,24 +8,24 @@ import CoursesList from './CoursesList';
 import CourseDetails from './CourseDetails';
 import CreateCourseModal from './CreateCourseModal';
 import useModal from '../../hooks/use-modal';
-import CoursesContext from '../../context/courses-context';
 
 /**
  * The Courses page displayed in the /courses route
  *
+ * @param {object} props
  * @returns {JSX.Element}
  */
-const Courses = () => {
+const Courses = (props) => {
+  const [courses, setCourses] = useState([...props.courses]);
   const [selectedCourse, setSelectedCourse] = useState();
-  const coursesCtx = useContext(CoursesContext);
   const modal = useModal();
 
   useEffect(() => {
     // Sets the default selected course to be the first one when the component is rendered
-    if (coursesCtx.courses.length >= 0) {
-      setSelectedCourse(coursesCtx.courses[0]);
+    if (courses.length >= 0) {
+      setSelectedCourse(courses[0]);
     }
-  }, [coursesCtx.courses]);
+  }, [courses]);
 
   /**
    * Sets the new selected course in the component's state
@@ -34,6 +34,49 @@ const Courses = () => {
    */
   const handleSelectCourse = (newSelectedCourse) => {
     setSelectedCourse(newSelectedCourse);
+  };
+
+  /**
+   * Adds the new given course to the courses state
+   *
+   * @param {object} newCourse
+   */
+  const createCourse = (newCourse) => {
+    setCourses((prevCourses) => {
+      const updatedCourses = [...prevCourses];
+      updatedCourses.push({ ...newCourse });
+      return updatedCourses;
+    });
+  };
+
+  /**
+   * Update the given course in the courses state
+   *
+   * @param {object} updatedCourse
+   */
+  const updateCourse = (updatedCourse) => {
+    setCourses((prevCourses) => {
+      const updatedCourses = [...prevCourses];
+      const existingCourseIndex = updatedCourses.findIndex(
+        (course) => course.id === updatedCourse.id
+      );
+      updatedCourses[existingCourseIndex] = { ...updatedCourse };
+
+      return updatedCourses;
+    });
+  };
+
+  /**
+   * Deletes the course with the given id from the courses state
+   *
+   * @param {object} courseId
+   */
+  const deleteCourse = (courseId) => {
+    setCourses((prevCourses) => {
+      const updatedCourses = [...prevCourses];
+      updatedCourses = updatedCourses.filter((course) => course.id !== courseId);
+      return updatedCourses;
+    });
   };
 
   return (
@@ -53,13 +96,21 @@ const Courses = () => {
           </Box>
         </Grid>
         <Grid item md={3}>
-          <CoursesList selectedCourse={selectedCourse} handleSelectCourse={handleSelectCourse} />
+          <CoursesList
+            courses={courses}
+            selectedCourse={selectedCourse}
+            handleSelectCourse={handleSelectCourse}
+          />
         </Grid>
         <Grid item md={9}>
-          <CourseDetails selectedCourse={selectedCourse} />
+          <CourseDetails
+            selectedCourse={selectedCourse}
+            updateCourse={updateCourse}
+            deleteCourse={deleteCourse}
+          />
         </Grid>
       </Grid>
-      <CreateCourseModal open={modal.visible} onClose={modal.close} />
+      <CreateCourseModal open={modal.visible} onClose={modal.close} createCourse={createCourse} />
     </Box>
   );
 };

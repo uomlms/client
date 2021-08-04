@@ -1,9 +1,9 @@
-import { useContext } from 'react';
+import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core';
-import CoursesContext from '../../context/courses-context';
 
 /**
  * Creates the style that can be used by the CoursesList component
@@ -22,27 +22,35 @@ const useStyles = makeStyles((theme) => ({
  * @param {object} props
  * @returns {JSX.Element}
  */
-const CoursesList = ({ selectedCourse, handleSelectCourse }) => {
+const CoursesList = ({ courses, selectedCourse, handleSelectCourse }) => {
   const classes = useStyles();
-  const coursesCtx = useContext(CoursesContext);
 
-  return (
-    <List>
-      {coursesCtx.courses.map((course) => (
-        <ListItem
-          button
-          key={course.id}
-          selected={selectedCourse?.id === course.id}
-          classes={{
-            selected: classes.selectedCourseItem,
-          }}
-          onClick={() => handleSelectCourse(course)}
-        >
-          <ListItemText primary={course.name} secondary={course.professor} />
-        </ListItem>
-      ))}
-    </List>
+  let coursesList = (
+    <Box>
+      <Alert severity="info">No courses found</Alert>
+    </Box>
   );
+  if (courses.length > 0) {
+    coursesList = (
+      <List>
+        {courses.map((course) => (
+          <ListItem
+            button
+            key={course.id}
+            selected={selectedCourse?.id === course.id}
+            classes={{
+              selected: classes.selectedCourseItem,
+            }}
+            onClick={() => handleSelectCourse(course)}
+          >
+            <ListItemText primary={course.name} secondary={course.professor} />
+          </ListItem>
+        ))}
+      </List>
+    );
+  }
+
+  return coursesList;
 };
 
 export default CoursesList;

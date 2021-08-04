@@ -1,11 +1,9 @@
-import { useContext } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 import Dialog from '../UI/Dialog';
 import TextField from '../UI/TextField';
 import SuccessButton from '../UI/Buttons/SuccessButton';
-import CoursesContext from '../../context/courses-context';
 import useCourseData from '../../hooks/use-course-data';
 import useRequest from '../../hooks/use-request';
 
@@ -17,7 +15,6 @@ import useRequest from '../../hooks/use-request';
  */
 const CreateCourseModal = (props) => {
   const { courseData, handleCourseDataChanged, clearCourseData } = useCourseData();
-  const coursesCtx = useContext(CoursesContext);
   const { sendRequest, errors } = useRequest({
     url: '/api/courses',
     method: 'post',
@@ -33,7 +30,7 @@ const CreateCourseModal = (props) => {
       return;
     }
 
-    coursesCtx.createCourse(newCourse);
+    props.createCourse(newCourse);
     clearCourseData();
     props.onClose();
   };

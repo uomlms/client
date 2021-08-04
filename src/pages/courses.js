@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import CoursesProvider from '../context/CoursesProvider';
 import Courses from '../components/Courses/Courses';
 import useClient from '../hooks/use-client';
 
@@ -20,11 +19,7 @@ const CoursesPage = ({ currentUser, courses }) => {
     }
   }, [currentUser]);
 
-  return (
-    <CoursesProvider courses={courses}>
-      <Courses />
-    </CoursesProvider>
-  );
+  return <Courses courses={courses} />;
 };
 
 /**

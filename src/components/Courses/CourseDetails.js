@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
@@ -8,7 +8,6 @@ import DangerButton from '../UI/Buttons/DangerButton';
 import Assignments from '../Assignments/Assignments';
 import useCourseData from '../../hooks/use-course-data';
 import useModal from '../../hooks/use-modal';
-import CoursesContext from '../../context/courses-context';
 import DeleteCourseModal from './DeleteCourseModal';
 import AssignmentsProvider from '../../context/AssignmentsProvider';
 import useRequest from '../../hooks/use-request';
@@ -19,29 +18,27 @@ import useRequest from '../../hooks/use-request';
  * @param {object} props
  * @returns {JSX.Element}
  */
-const CourseDetails = ({ selectedCourse }) => {
-  const coursesCtx = useContext(CoursesContext);
+const CourseDetails = (props) => {
   const modal = useModal();
-
   const { courseData, setCourseData, handleCourseDataChanged } = useCourseData({
-    ...selectedCourse,
-  });
-
-  const deleteCourseReq = useRequest({
-    url: `/api/courses/${selectedCourse?.id}`,
-    method: 'delete',
+    ...props.selectedCourse,
   });
 
   const updateCourseReq = useRequest({
-    url: `/api/courses/${selectedCourse?.id}`,
+    url: `/api/courses/${props.selectedCourse?.id}`,
     method: 'patch',
     body: { ...courseData },
   });
 
+  const deleteCourseReq = useRequest({
+    url: `/api/courses/${props.selectedCourse?.id}`,
+    method: 'delete',
+  });
+
   // Sets the course data with the data of the selected course
   useEffect(() => {
-    setCourseData({ ...selectedCourse });
-  }, [selectedCourse]);
+    setCourseData({ ...props.selectedCourse });
+  }, [props.selectedCourse]);
 
   /**
    * Handles the click event of the Save button.
@@ -53,7 +50,7 @@ const CourseDetails = ({ selectedCourse }) => {
     if (!updatedCourse) {
       return;
     }
-    coursesCtx.updateCourse(updatedCourse);
+    props.updateCourse(updatedCourse);
   };
 
   /**
@@ -63,7 +60,7 @@ const CourseDetails = ({ selectedCourse }) => {
    */
   const handleDeleteClicked = async () => {
     await deleteCourseReq.sendRequest();
-    coursesCtx.deleteCourse(selectedCourse.id);
+    props.deleteCourse(props.selectedCourse.id);
     modal.close();
   };
 
@@ -75,7 +72,7 @@ const CourseDetails = ({ selectedCourse }) => {
       </Box>
     ));
 
-  return (
+  const courseDetails = (
     <React.Fragment>
       <Grid container spacing={1}>
         {updateCourseErrors && (
@@ -143,16 +140,18 @@ const CourseDetails = ({ selectedCourse }) => {
         </Grid>
       </Grid>
       <AssignmentsProvider>
-        <Assignments course={selectedCourse} />
+        <Assignments course={props.selectedCourse} />
       </AssignmentsProvider>
       <DeleteCourseModal
         open={modal.visible}
         onClose={modal.close}
-        course={selectedCourse}
+        course={props.selectedCourse}
         handleDeleteClicked={handleDeleteClicked}
       />
     </React.Fragment>
   );
+
+  return props.selectedCourse ? courseDetails : null;
 };
 
 export default CourseDetails;
