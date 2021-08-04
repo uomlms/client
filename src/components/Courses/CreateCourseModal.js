@@ -1,5 +1,7 @@
 import { useContext } from 'react';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Alert from '@material-ui/lab/Alert';
 import Dialog from '../UI/Dialog';
 import TextField from '../UI/TextField';
 import SuccessButton from '../UI/Buttons/SuccessButton';
@@ -27,12 +29,22 @@ const CreateCourseModal = (props) => {
    */
   const handleCreateCourseClicked = async () => {
     const newCourse = await sendRequest();
-    console.log(newCourse);
+    if (!newCourse) {
+      return;
+    }
 
     coursesCtx.createCourse(newCourse);
     clearCourseData();
     props.onClose();
   };
+
+  const errorMessages =
+    errors &&
+    errors.map((err) => (
+      <Box key={err.message} my={1}>
+        <Alert severity="error">{err.message}</Alert>
+      </Box>
+    ));
 
   return (
     <Dialog
@@ -42,6 +54,11 @@ const CreateCourseModal = (props) => {
       actions={<SuccessButton onClick={handleCreateCourseClicked}>Create</SuccessButton>}
     >
       <Grid container spacing={1}>
+        {errorMessages && (
+          <Grid item md={12}>
+            {errorMessages}
+          </Grid>
+        )}
         <Grid item md={4}>
           <TextField
             label="Name"

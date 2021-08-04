@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 import TextField from '../UI/TextField';
 import SuccessButton from '../UI/Buttons/SuccessButton';
 import DangerButton from '../UI/Buttons/DangerButton';
@@ -19,31 +20,46 @@ import useRequest from '../../hooks/use-request';
  * @returns {JSX.Element}
  */
 const CourseDetails = ({ selectedCourse }) => {
-  const modal = useModal();
   const coursesCtx = useContext(CoursesContext);
+  const modal = useModal();
+
   const { courseData, setCourseData, handleCourseDataChanged } = useCourseData({
     ...selectedCourse,
   });
+
   const deleteCourseReq = useRequest({
     url: `/api/courses/${selectedCourse?.id}`,
     method: 'delete',
   });
 
+  const updateCourseReq = useRequest({
+    url: `/api/courses/${selectedCourse?.id}`,
+    method: 'patch',
+    body: { ...courseData },
+  });
+
+  // Sets the course data with the data of the selected course
   useEffect(() => {
     setCourseData({ ...selectedCourse });
   }, [selectedCourse]);
 
   /**
-   * Handles the click event of the Save button. Calls the updateCourse function
-   * from the CourseContext
+   * Handles the click event of the Save button.
+   * Sends a PATCH request to the courses service updating the selected course and
+   * calls the updateCourse function from the CourseContext
    */
-  const handleSaveClicked = () => {
-    coursesCtx.updateCourse(courseData);
+  const handleSaveClicked = async () => {
+    const updatedCourse = await updateCourseReq.sendRequest();
+    if (!updatedCourse) {
+      return;
+    }
+    coursesCtx.updateCourse(updatedCourse);
   };
 
   /**
-   * Handles the click event of the Delete button. Calls the deleteCourse function
-   * from the CourseContext.
+   * Handles the click event of the Delete button.
+   * Sends a DELETE request to the courses service deleting the selected course and
+   * calls the deleteCourse function from the CourseContext.
    */
   const handleDeleteClicked = async () => {
     await deleteCourseReq.sendRequest();
@@ -51,9 +67,23 @@ const CourseDetails = ({ selectedCourse }) => {
     modal.close();
   };
 
+  const updateCourseErrors =
+    updateCourseReq.errors &&
+    updateCourseReq.errors.map((err) => (
+      <Box key={err.message} my={1}>
+        <Alert severity="error">{err.message}</Alert>
+      </Box>
+    ));
+
   return (
     <React.Fragment>
       <Grid container spacing={1}>
+        {updateCourseErrors && (
+          <Grid item md={12}>
+            {updateCourseErrors}
+          </Grid>
+        )}
+
         <Grid item md={4}>
           <TextField
             label="Name"

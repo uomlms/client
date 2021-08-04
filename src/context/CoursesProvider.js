@@ -18,17 +18,12 @@ const coursesReducer = (state, action) => {
   // Implements the creation of a course
   if (action.type === 'CREATE') {
     const newCourse = { ...action.course };
-    // temporary id for courses length + 1
-    newCourse.id = updatedCourses.length + 1;
     updatedCourses.push(newCourse);
     return updatedCourses;
   }
 
   // Implements the deletion of a course
   if (action.type === 'DELETE') {
-    // const existingCourseIndex = state.findIndex((course) => course.id === action.id);
-    // const existingCourse = updateCourses[existingCourseIndex];
-    // delete existingCourse;
     updatedCourses = updatedCourses.filter((course) => course.id !== action.id);
     return updatedCourses;
   }
