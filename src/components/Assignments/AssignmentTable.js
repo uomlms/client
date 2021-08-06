@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
@@ -8,7 +7,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core';
 import AssignmentActions from './AssignmentActions';
-import AssignmentsContext from '../../context/assignments-context';
 
 /**
  * Creates the styles that can be used by the AssignmentTable component
@@ -27,23 +25,28 @@ const useStyles = makeStyles((theme) => ({
  * @param {object} props
  * @returns {JSX.Element}
  */
-const AssignmentTable = () => {
+const AssignmentTable = (props) => {
   const classes = useStyles();
-  const assignmentsCtx = useContext(AssignmentsContext);
 
   let assignmentsRows = (
     <TableRow>
       <TableCell>No assignments for the selected course</TableCell>
     </TableRow>
   );
-  if (assignmentsCtx.assignments?.length > 0) {
-    assignmentsRows = assignmentsCtx.assignments.map((assignment, index) => (
+  if (props.assignments?.length > 0) {
+    assignmentsRows = props.assignments.map((assignment, index) => (
       <TableRow key={index}>
-        <TableCell>{assignment.title}</TableCell>
+        <TableCell>{assignment.name}</TableCell>
         <TableCell>{assignment.description}</TableCell>
-        <TableCell>{assignment.dueDate}</TableCell>
+        <TableCell>{assignment.deadline.match(/\d{4}-\d{2}-\d{2}/).pop()}</TableCell>
         <TableCell align="right" style={{ width: '20%' }}>
-          <AssignmentActions assignment={assignment}>{assignment.actions}</AssignmentActions>
+          <AssignmentActions
+            assignment={assignment}
+            updateAssignment={props.updateAssignment}
+            deleteAssignment={props.deleteAssignment}
+          >
+            {assignment.actions}
+          </AssignmentActions>
         </TableCell>
       </TableRow>
     ));
@@ -54,9 +57,9 @@ const AssignmentTable = () => {
       <Table>
         <TableHead className={classes.theadLight}>
           <TableRow>
-            <TableCell>Title</TableCell>
+            <TableCell>Name</TableCell>
             <TableCell>Description</TableCell>
-            <TableCell>Due date</TableCell>
+            <TableCell>Deadline</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableHead>

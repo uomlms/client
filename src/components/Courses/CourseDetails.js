@@ -9,7 +9,6 @@ import Assignments from '../Assignments/Assignments';
 import useCourseData from '../../hooks/use-course-data';
 import useModal from '../../hooks/use-modal';
 import DeleteCourseModal from './DeleteCourseModal';
-import AssignmentsProvider from '../../context/AssignmentsProvider';
 import useRequest from '../../hooks/use-request';
 
 /**
@@ -139,9 +138,7 @@ const CourseDetails = (props) => {
           </Box>
         </Grid>
       </Grid>
-      <AssignmentsProvider>
-        <Assignments course={props.selectedCourse} />
-      </AssignmentsProvider>
+      <Assignments course={props.selectedCourse} />
       <DeleteCourseModal
         open={modal.visible}
         onClose={modal.close}

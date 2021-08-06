@@ -1,8 +1,10 @@
-import { useState, useContext } from 'react';
+import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 import AssignmentForm from './AssignmentForm';
 import Dialog from '../UI/Dialog';
 import SuccessButton from '../UI/Buttons/SuccessButton';
-import AssignmentsContext from '../../context/assignments-context';
+import useRequest from '../../hooks/use-request';
+import useAssignmentData from '../../hooks/use-assignment-data';
 
 /**
  * Renders the Create Assignment modal from which the user can create an assignment
@@ -11,35 +13,36 @@ import AssignmentsContext from '../../context/assignments-context';
  * @returns {JSX.Element}
  */
 const CreateAssignmentModal = (props) => {
-  const emptyAssignmentState = {
-    title: '',
-    dueDate: '',
-    description: '',
-    course_id: props.course?.id,
-  };
-  const assignmentsCtx = useContext(AssignmentsContext);
-  const [newAssignment, setNewAssignment] = useState(emptyAssignmentState);
+  const { assignmentData, clearAssignmentData, handleAssignmentFieldChanged } = useAssignmentData();
+  const { sendRequest, errors } = useRequest({
+    url: `/api/courses/${props.course?.id}/assignments`,
+    method: 'post',
+    body: { ...assignmentData },
+  });
 
   /**
-   * Handles the change of an assignment field in the assignment form
-   *
-   * @param {object} event
-   * @param {string} field
+   * Handles the click event of the Create button.
+   * Sends a POST request to the courses service creating the assignment
+   * and adds it to the assignment state.
    */
-  const handleAssignmentFieldChanged = (event, field) => {
-    const updatedNewAssignment = { ...newAssignment };
-    updatedNewAssignment[field] = event.target.value;
-    setNewAssignment(updatedNewAssignment);
-  };
+  const handleCreateClicked = async () => {
+    const newAssignment = await sendRequest();
+    if (!newAssignment) {
+      return;
+    }
 
-  /**
-   * Handles the click event of the Create button
-   */
-  const handleCreateClicked = () => {
-    assignmentsCtx.create(newAssignment);
-    setNewAssignment(emptyAssignmentState);
+    clearAssignmentData();
+    props.createAssignment(newAssignment);
     props.onClose();
   };
+
+  const errorMessages =
+    errors &&
+    errors.map((err) => (
+      <Box key={err.message} my={1}>
+        <Alert severity="error">{err.message}</Alert>
+      </Box>
+    ));
 
   return (
     <Dialog
@@ -48,8 +51,9 @@ const CreateAssignmentModal = (props) => {
       maxWidth="md"
       actions={<SuccessButton onClick={handleCreateClicked}>Create</SuccessButton>}
     >
+      {errorMessages}
       <AssignmentForm
-        assignment={newAssignment}
+        assignment={assignmentData}
         handleAssignmentFieldChanged={handleAssignmentFieldChanged}
       />
     </Dialog>

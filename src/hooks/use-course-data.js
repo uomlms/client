@@ -34,9 +34,11 @@ const useCourseData = (currentCourse) => {
    * @param {string} field
    */
   const handleCourseDataChanged = (event, field) => {
-    const updatedCourseData = { ...courseData };
-    updatedCourseData[field] = event.target.value;
-    setCourseData(updatedCourseData);
+    setCourseData((prevCourseData) => {
+      const updatedCourseData = { ...prevCourseData };
+      updatedCourseData[field] = event.target.value;
+      return updatedCourseData;
+    });
   };
 
   return { courseData, setCourseData, handleCourseDataChanged, clearCourseData };

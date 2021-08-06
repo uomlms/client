@@ -12,22 +12,22 @@ const AssignmentForm = ({ assignment, handleAssignmentFieldChanged }) => {
     <Grid container spacing={1}>
       <Grid item md={6}>
         <TextField
-          label="Title"
+          label="Name"
           fullWidth
-          value={assignment?.title ?? ''}
-          onChange={(event) => handleAssignmentFieldChanged(event, 'title')}
+          value={assignment?.name ?? ''}
+          onChange={(event) => handleAssignmentFieldChanged(event, 'name')}
         />
       </Grid>
       <Grid item md={6}>
         <TextField
           type="date"
-          label="Due date"
+          label="Deadline"
           fullWidth
           InputLabelProps={{
             shrink: true,
           }}
-          value={assignment?.dueDate ?? ''}
-          onChange={(event) => handleAssignmentFieldChanged(event, 'dueDate')}
+          value={assignment?.deadline.match(/\d{4}-\d{2}-\d{2}/)?.pop() ?? ''}
+          onChange={(event) => handleAssignmentFieldChanged(event, 'deadline')}
         />
       </Grid>
       <Grid item md={12}>

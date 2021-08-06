@@ -15,7 +15,7 @@ import useModal from '../../hooks/use-modal';
  * @param {object} props
  * @returns {JSX.Element}
  */
-const AssignmentActions = ({ assignment }) => {
+const AssignmentActions = (props) => {
   const editAssignmentModal = useModal();
   const deleteModal = useModal();
 
@@ -46,12 +46,14 @@ const AssignmentActions = ({ assignment }) => {
       <EditAssignmentModal
         open={editAssignmentModal.visible}
         onClose={editAssignmentModal.close}
-        assignment={assignment}
+        assignment={props.assignment}
+        updateAssignment={props.updateAssignment}
       />
       <DeleteAssignmentModal
         open={deleteModal.visible}
         onClose={deleteModal.close}
-        assignment={assignment}
+        assignment={props.assignment}
+        deleteAssignment={props.deleteAssignment}
       />
     </React.Fragment>
   );

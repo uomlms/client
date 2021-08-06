@@ -73,7 +73,7 @@ const Courses = (props) => {
    */
   const deleteCourse = (courseId) => {
     setCourses((prevCourses) => {
-      const updatedCourses = [...prevCourses];
+      let updatedCourses = [...prevCourses];
       updatedCourses = updatedCourses.filter((course) => course.id !== courseId);
       return updatedCourses;
     });
