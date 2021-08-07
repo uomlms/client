@@ -11,7 +11,7 @@ import AssignmentActions from './AssignmentActions';
 /**
  * Creates the styles that can be used by the AssignmentTable component
  *
- * @returns {object}
+ * @returns {Object}
  */
 const useStyles = makeStyles((theme) => ({
   theadLight: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Renders the table where the assignments of the selected course are displayed
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const AssignmentTable = (props) => {

@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core';
 /**
  * Creates the style that can be used by the CoursesList component
  *
- * @returns {object}
+ * @returns {Object}
  */
 const useStyles = makeStyles((theme) => ({
   selectedCourseItem: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Renders the list of the availiable courses
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const CoursesList = ({ courses, selectedCourse, handleSelectCourse }) => {

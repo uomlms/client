@@ -10,12 +10,19 @@ import useRequest from '../../hooks/use-request';
 /**
  * Renders the information and actions for the assignments of the selected course
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const Assignments = ({ course }) => {
   const [assignments, setAssignments] = useState([]);
   const modal = useModal();
+
+  /**
+   * Handles the execution and the errors of the GET request to the courses service
+   * that return every course.
+   *
+   * @type {Object}
+   */
   const { sendRequest } = useRequest({
     url: `/api/courses/${course?.id}/assignments`,
     method: 'get',
@@ -37,7 +44,7 @@ const Assignments = ({ course }) => {
   /**
    * Adds the new given assignment to the assignments state
    *
-   * @param {object} newAssignment
+   * @param {Object} newAssignment
    */
   const createAssignment = (newAssignment) => {
     setAssignments((prevAssignments) => {
@@ -50,7 +57,7 @@ const Assignments = ({ course }) => {
   /**
    * Update the given assignment it the assignments state
    *
-   * @param {object} updatedAssignment
+   * @param {Object} updatedAssignment
    */
   const updateAssignment = (updatedAssignment) => {
     setAssignments((prevAssignments) => {
@@ -96,8 +103,10 @@ const Assignments = ({ course }) => {
         deleteAssignment={deleteAssignment}
       />
       <CreateAssignmentModal
-        open={modal.visible}
-        onClose={modal.close}
+        modalProps={{
+          open: modal.visible,
+          onClose: modal.close,
+        }}
         course={course}
         createAssignment={createAssignment}
       />

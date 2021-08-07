@@ -14,7 +14,7 @@ import useRequest from '../../hooks/use-request';
 /**
  * Renders the details of the selected course
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const CourseDetails = (props) => {
@@ -23,12 +23,24 @@ const CourseDetails = (props) => {
     ...props.selectedCourse,
   });
 
+  /**
+   * Handles the execution and the error of the PATCH request to the courses service
+   * that updates the selected course
+   *
+   * @type {Object}
+   */
   const updateCourseReq = useRequest({
     url: `/api/courses/${props.selectedCourse?.id}`,
     method: 'patch',
     body: { ...courseData },
   });
 
+  /**
+   * Handles the execution and the errors of the DELETE request to the courses services
+   * that deletes the selected course
+   *
+   * @type {Object}
+   */
   const deleteCourseReq = useRequest({
     url: `/api/courses/${props.selectedCourse?.id}`,
     method: 'delete',
@@ -140,8 +152,10 @@ const CourseDetails = (props) => {
       </Grid>
       <Assignments course={props.selectedCourse} />
       <DeleteCourseModal
-        open={modal.visible}
-        onClose={modal.close}
+        modalProps={{
+          open: modal.visible,
+          onClose: modal.close,
+        }}
         course={props.selectedCourse}
         handleDeleteClicked={handleDeleteClicked}
       />

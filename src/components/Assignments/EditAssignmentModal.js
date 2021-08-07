@@ -10,14 +10,19 @@ import useAssignmentData from '../../hooks/use-assignment-data';
 /**
  * Renders the Edit Assignment modal from which the user can edit an assignment
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
-const EditAssignmentModal = (props) => {
-  const { assignment, updateAssignment } = props;
+const EditAssignmentModal = ({ assignment, updateAssignment, modalProps }) => {
   const { assignmentData, setAssignmentData, clearAssignmentData, handleAssignmentFieldChanged } =
     useAssignmentData(assignment);
 
+  /**
+   * Handles the execution and the erros of the PATCH request to the courses
+   * service that updates the current assignment
+   *
+   * @type {Object}
+   */
   const { sendRequest, errors } = useRequest({
     url: `/api/courses/${assignmentData.course}/assignments/${assignmentData.id}`,
     method: 'patch',
@@ -42,7 +47,7 @@ const EditAssignmentModal = (props) => {
 
     updateAssignment(updatedAssignment);
     clearAssignmentData();
-    props.onClose();
+    modalProps.onClose();
   };
 
   const updateAssignmentError =
@@ -55,7 +60,7 @@ const EditAssignmentModal = (props) => {
 
   return (
     <Dialog
-      {...props}
+      {...modalProps}
       title="Edit assignment"
       maxWidth="md"
       actions={<SuccessButton onClick={handleSaveClicked}>Save</SuccessButton>}

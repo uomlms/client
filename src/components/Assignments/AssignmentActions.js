@@ -12,7 +12,7 @@ import useModal from '../../hooks/use-modal';
 /**
  * Renders the actions that can be executed for each assignment
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const AssignmentActions = (props) => {
@@ -44,14 +44,18 @@ const AssignmentActions = (props) => {
         </Box>
       </Box>
       <EditAssignmentModal
-        open={editAssignmentModal.visible}
-        onClose={editAssignmentModal.close}
+        modalProps={{
+          open: editAssignmentModal.visible,
+          onClose: editAssignmentModal.close,
+        }}
         assignment={props.assignment}
         updateAssignment={props.updateAssignment}
       />
       <DeleteAssignmentModal
-        open={deleteModal.visible}
-        onClose={deleteModal.close}
+        modalProps={{
+          open: deleteModal.visible,
+          onClose: deleteModal.close,
+        }}
         assignment={props.assignment}
         deleteAssignment={props.deleteAssignment}
       />

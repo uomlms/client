@@ -12,7 +12,7 @@ import useModal from '../../hooks/use-modal';
 /**
  * The Courses page displayed in the /courses route
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const Courses = (props) => {
@@ -30,7 +30,7 @@ const Courses = (props) => {
   /**
    * Sets the new selected course in the component's state
    *
-   * @param {object} newSelectedCourse
+   * @param {Object} newSelectedCourse
    */
   const handleSelectCourse = (newSelectedCourse) => {
     setSelectedCourse(newSelectedCourse);
@@ -39,7 +39,7 @@ const Courses = (props) => {
   /**
    * Adds the new given course to the courses state
    *
-   * @param {object} newCourse
+   * @param {Object} newCourse
    */
   const createCourse = (newCourse) => {
     setCourses((prevCourses) => {
@@ -52,7 +52,7 @@ const Courses = (props) => {
   /**
    * Update the given course in the courses state
    *
-   * @param {object} updatedCourse
+   * @param {Object} updatedCourse
    */
   const updateCourse = (updatedCourse) => {
     setCourses((prevCourses) => {
@@ -69,7 +69,7 @@ const Courses = (props) => {
   /**
    * Deletes the course with the given id from the courses state
    *
-   * @param {object} courseId
+   * @param {Object} courseId
    */
   const deleteCourse = (courseId) => {
     setCourses((prevCourses) => {
@@ -110,7 +110,10 @@ const Courses = (props) => {
           />
         </Grid>
       </Grid>
-      <CreateCourseModal open={modal.visible} onClose={modal.close} createCourse={createCourse} />
+      <CreateCourseModal
+        modalProps={{ open: modal.visible, onClose: modal.close }}
+        createCourse={createCourse}
+      />
     </Box>
   );
 };

@@ -7,7 +7,7 @@ import { useState } from 'react';
  * given callback if the request is successful.
  *
  * @param {object} param0
- * @returns {object}
+ * @returns {object} The function that executes the request and the errors
  */
 const useRequest = ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);

@@ -10,11 +10,18 @@ import useRequest from '../../hooks/use-request';
 /**
  * Renders the Create course modal from which the use can create a new course
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const CreateCourseModal = (props) => {
   const { courseData, handleCourseDataChanged, clearCourseData } = useCourseData();
+
+  /**
+   * Handles the execution and the errors of the POST request to the courses
+   * service tha creates a course.
+   *
+   * @type {Object}
+   */
   const { sendRequest, errors } = useRequest({
     url: '/api/courses',
     method: 'post',
@@ -32,7 +39,7 @@ const CreateCourseModal = (props) => {
 
     props.createCourse(newCourse);
     clearCourseData();
-    props.onClose();
+    props.modalProps.onClose();
   };
 
   const errorMessages =
@@ -45,7 +52,7 @@ const CreateCourseModal = (props) => {
 
   return (
     <Dialog
-      {...props}
+      {...props.modalProps}
       title="Create course"
       maxWidth="md"
       actions={<SuccessButton onClick={handleCreateCourseClicked}>Create</SuccessButton>}

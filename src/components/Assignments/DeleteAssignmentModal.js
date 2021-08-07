@@ -7,11 +7,16 @@ import useRequest from '../../hooks/use-request';
  * Renders the delete assignment modal that asks the users if they are sure they
  * want to delete the selected assignment.
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
-const DeleteAssignmentModal = (props) => {
-  const { assignment, deleteAssignment } = props;
+const DeleteAssignmentModal = ({ assignment, deleteAssignment, modalProps }) => {
+  /**
+   * Handles the execution and the errors of the DELETE request to the courses
+   * service that deletes the current assignment
+   *
+   * @type {Object}
+   */
   const { sendRequest } = useRequest({
     url: `/api/courses/${assignment.course}/assignments/${assignment.id}`,
     method: 'delete',
@@ -25,12 +30,12 @@ const DeleteAssignmentModal = (props) => {
   const handleDeleteClicked = async () => {
     await sendRequest();
     deleteAssignment(assignment.id);
-    props.onClose();
+    modalProps.onClose();
   };
 
   return (
     <Dialog
-      {...props}
+      {...modalProps}
       title={`Delete ${assignment?.name}`}
       maxWidth="sm"
       actions={<DangerButton onClick={handleDeleteClicked}>Delete</DangerButton>}

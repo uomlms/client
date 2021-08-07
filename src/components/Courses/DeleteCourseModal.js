@@ -6,15 +6,13 @@ import DangerButton from '../UI/Buttons/DangerButton';
  * Renders the Delete course modal. A modal that asks the users if they are sure
  * they want to delete the current course.
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
-const DeleteCourseModal = (props) => {
-  const { course, handleDeleteClicked } = props;
-
+const DeleteCourseModal = ({ course, handleDeleteClicked, modalProps }) => {
   return (
     <Dialog
-      {...props}
+      {...modalProps}
       title={`Delete ${course?.name}`}
       maxWidth="sm"
       actions={<DangerButton onClick={handleDeleteClicked}>Delete</DangerButton>}

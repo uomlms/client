@@ -9,13 +9,20 @@ import useAssignmentData from '../../hooks/use-assignment-data';
 /**
  * Renders the Create Assignment modal from which the user can create an assignment
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
-const CreateAssignmentModal = (props) => {
+const CreateAssignmentModal = ({ course, createAssignment, modalProps }) => {
   const { assignmentData, clearAssignmentData, handleAssignmentFieldChanged } = useAssignmentData();
+
+  /**
+   * Handles the execution and the errors of the POST request to the courses services
+   * that creates an assignment.
+   *
+   * @type {Object}
+   */
   const { sendRequest, errors } = useRequest({
-    url: `/api/courses/${props.course?.id}/assignments`,
+    url: `/api/courses/${course?.id}/assignments`,
     method: 'post',
     body: { ...assignmentData },
   });
@@ -32,8 +39,8 @@ const CreateAssignmentModal = (props) => {
     }
 
     clearAssignmentData();
-    props.createAssignment(newAssignment);
-    props.onClose();
+    createAssignment(newAssignment);
+    modalProps.onClose();
   };
 
   const errorMessages =
@@ -46,7 +53,7 @@ const CreateAssignmentModal = (props) => {
 
   return (
     <Dialog
-      {...props}
+      {...modalProps}
       title="Create assignment"
       maxWidth="md"
       actions={<SuccessButton onClick={handleCreateClicked}>Create</SuccessButton>}

@@ -4,7 +4,7 @@ import TextField from '../UI/TextField';
 /**
  * Renders a form with the fields the Assignment has
  *
- * @param {object} props
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const AssignmentForm = ({ assignment, handleAssignmentFieldChanged }) => {
