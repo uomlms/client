@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
@@ -17,14 +17,12 @@ import useModal from '../../hooks/use-modal';
  */
 const Courses = (props) => {
   const [courses, setCourses] = useState([...props.courses]);
-  const [selectedCourse, setSelectedCourse] = useState();
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const modal = useModal();
 
   useEffect(() => {
     // Sets the default selected course to be the first one when the component is rendered
-    if (courses.length >= 0) {
-      setSelectedCourse(courses[0]);
-    }
+    setSelectedCourse(courses.length > 0 ? courses[0] : null);
   }, [courses]);
 
   /**
@@ -32,9 +30,10 @@ const Courses = (props) => {
    *
    * @param {Object} newSelectedCourse
    */
-  const handleSelectCourse = (newSelectedCourse) => {
-    setSelectedCourse(newSelectedCourse);
-  };
+  const handleSelectCourse = useCallback(
+    (newSelectedCourse) => setSelectedCourse(newSelectedCourse),
+    [selectedCourse]
+  );
 
   /**
    * Adds the new given course to the courses state

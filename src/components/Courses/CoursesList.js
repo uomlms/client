@@ -1,3 +1,4 @@
+import React from 'react';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
 import List from '@material-ui/core/List';
@@ -53,4 +54,4 @@ const CoursesList = ({ courses, selectedCourse, handleSelectCourse }) => {
   return coursesList;
 };
 
-export default CoursesList;
+export default React.memo(CoursesList);
