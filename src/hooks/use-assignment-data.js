@@ -8,7 +8,7 @@ import { useState } from 'react';
  */
 const useAssignmentData = (currentAssignment) => {
   const defaultAssignmentState = {
-    type: 'obligatory',
+    type: '',
     name: '',
     deadline: '',
     description: '',

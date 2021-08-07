@@ -37,6 +37,7 @@ const AssignmentTable = (props) => {
     assignmentsRows = props.assignments.map((assignment, index) => (
       <TableRow key={index}>
         <TableCell>{assignment.name}</TableCell>
+        <TableCell>{assignment.type}</TableCell>
         <TableCell>{assignment.description}</TableCell>
         <TableCell>{assignment.deadline.match(/\d{4}-\d{2}-\d{2}/).pop()}</TableCell>
         <TableCell align="right" style={{ width: '20%' }}>
@@ -58,6 +59,7 @@ const AssignmentTable = (props) => {
         <TableHead className={classes.theadLight}>
           <TableRow>
             <TableCell>Name</TableCell>
+            <TableCell>Type</TableCell>
             <TableCell>Description</TableCell>
             <TableCell>Deadline</TableCell>
             <TableCell></TableCell>

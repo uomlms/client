@@ -1,5 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import TextField from '../UI/TextField';
+import Select from '../UI/Select';
 
 /**
  * Renders a form with the fields the Assignment has
@@ -10,7 +11,7 @@ import TextField from '../UI/TextField';
 const AssignmentForm = ({ assignment, handleAssignmentFieldChanged }) => {
   return (
     <Grid container spacing={1}>
-      <Grid item md={6}>
+      <Grid item md={4}>
         <TextField
           label="Name"
           fullWidth
@@ -18,7 +19,23 @@ const AssignmentForm = ({ assignment, handleAssignmentFieldChanged }) => {
           onChange={(event) => handleAssignmentFieldChanged(event, 'name')}
         />
       </Grid>
-      <Grid item md={6}>
+      <Grid item md={4}>
+        <Select
+          formControlProps={{
+            fullWidth: true,
+          }}
+          selectProps={{
+            label: 'Type',
+            value: assignment?.type ?? '',
+            onChange: (event) => handleAssignmentFieldChanged(event, 'type'),
+          }}
+          options={[
+            { value: 'obligatory', text: 'obligatory' },
+            { value: 'optional', text: 'optional' },
+          ]}
+        />
+      </Grid>
+      <Grid item md={4}>
         <TextField
           type="date"
           label="Deadline"
