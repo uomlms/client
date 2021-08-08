@@ -1,3 +1,4 @@
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
@@ -71,4 +72,4 @@ const AssignmentTable = (props) => {
   );
 };
 
-export default AssignmentTable;
+export default React.memo(AssignmentTable);

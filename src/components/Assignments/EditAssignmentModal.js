@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
 import AssignmentForm from './AssignmentForm';
@@ -17,6 +16,11 @@ const EditAssignmentModal = ({ assignment, updateAssignment, modalProps }) => {
   const { assignmentData, setAssignmentData, clearAssignmentData, handleAssignmentFieldChanged } =
     useAssignmentData(assignment);
 
+  // Sets the assignment data with the data of the current assignment if it's not the same
+  if (assignment.id !== assignmentData.id) {
+    setAssignmentData(assignment);
+  }
+
   /**
    * Handles the execution and the erros of the PATCH request to the courses
    * service that updates the current assignment
@@ -28,11 +32,6 @@ const EditAssignmentModal = ({ assignment, updateAssignment, modalProps }) => {
     method: 'patch',
     body: { ...assignmentData },
   });
-
-  // Sets the assignment data with the data of the current assignment
-  useEffect(() => {
-    setAssignmentData({ ...assignment });
-  }, [assignment]);
 
   /**
    * Handles the click event of the Save button.

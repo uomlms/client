@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '../UI/Buttons/Button';
@@ -46,44 +46,53 @@ const Assignments = ({ course }) => {
    *
    * @param {Object} newAssignment
    */
-  const createAssignment = (newAssignment) => {
-    setAssignments((prevAssignments) => {
-      const updatedAssignments = [...prevAssignments];
-      updatedAssignments.push(newAssignment);
-      return updatedAssignments;
-    });
-  };
+  const createAssignment = useCallback(
+    (newAssignment) => {
+      setAssignments((prevAssignments) => {
+        const updatedAssignments = [...prevAssignments];
+        updatedAssignments.push(newAssignment);
+        return updatedAssignments;
+      });
+    },
+    [assignments]
+  );
 
   /**
    * Update the given assignment it the assignments state
    *
    * @param {Object} updatedAssignment
    */
-  const updateAssignment = (updatedAssignment) => {
-    setAssignments((prevAssignments) => {
-      const updatedAssignments = [...prevAssignments];
-      const existingAssignmentIndex = updatedAssignments.findIndex(
-        (assignment) => assignment.id === updatedAssignment.id
-      );
-      updatedAssignments[existingAssignmentIndex] = { ...updatedAssignment };
-      return updatedAssignments;
-    });
-  };
+  const updateAssignment = useCallback(
+    (updatedAssignment) => {
+      setAssignments((prevAssignments) => {
+        const updatedAssignments = [...prevAssignments];
+        const existingAssignmentIndex = updatedAssignments.findIndex(
+          (assignment) => assignment.id === updatedAssignment.id
+        );
+        updatedAssignments[existingAssignmentIndex] = { ...updatedAssignment };
+        return updatedAssignments;
+      });
+    },
+    [assignments]
+  );
 
   /**
    * Removes the assignment with the given assignment id from the assignment state
    *
    * @param {string} assignmentId
    */
-  const deleteAssignment = (assignmentId) => {
-    setAssignments((prevAssignments) => {
-      let updatedAssignments = [...prevAssignments];
-      updatedAssignments = updatedAssignments.filter(
-        (assignment) => assignment.id !== assignmentId
-      );
-      return updatedAssignments;
-    });
-  };
+  const deleteAssignment = useCallback(
+    (assignmentId) => {
+      setAssignments((prevAssignments) => {
+        let updatedAssignments = [...prevAssignments];
+        updatedAssignments = updatedAssignments.filter(
+          (assignment) => assignment.id !== assignmentId
+        );
+        return updatedAssignments;
+      });
+    },
+    [assignments]
+  );
 
   return (
     <Box mt={2}>
@@ -114,4 +123,4 @@ const Assignments = ({ course }) => {
   );
 };
 
-export default Assignments;
+export default React.memo(Assignments);
