@@ -91,11 +91,13 @@ const Courses = (props) => {
           </Box>
         </Grid>
         <Grid item md={9}>
-          <Box height={1} display="flex" alignItems="center" justifyContent="flex-end">
-            <Button color="primary" onClick={modal.open}>
-              Create course
-            </Button>
-          </Box>
+          {props.isStaff && (
+            <Box height={1} display="flex" alignItems="center" justifyContent="flex-end">
+              <Button color="primary" onClick={modal.open}>
+                Create course
+              </Button>
+            </Box>
+          )}
         </Grid>
         <Grid item md={3}>
           <CoursesList
@@ -109,13 +111,16 @@ const Courses = (props) => {
             selectedCourse={selectedCourse}
             updateCourse={updateCourse}
             deleteCourse={deleteCourse}
+            isStaff={props.isStaff}
           />
         </Grid>
       </Grid>
-      <CreateCourseModal
-        modalProps={{ open: modal.visible, onClose: modal.close }}
-        createCourse={createCourse}
-      />
+      {props.isStaff && (
+        <CreateCourseModal
+          modalProps={{ open: modal.visible, onClose: modal.close }}
+          createCourse={createCourse}
+        />
+      )}
     </Box>
   );
 };

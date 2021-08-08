@@ -22,11 +22,13 @@ const AssignmentActions = (props) => {
   return (
     <React.Fragment>
       <Box display="flex" justifyContent="flex-end">
-        <Box mx={1}>
-          <IconButton title="Edit" onClick={editAssignmentModal.open}>
-            <EditIcon />
-          </IconButton>
-        </Box>
+        {props.isStaff && (
+          <Box mx={1}>
+            <IconButton title="Edit" onClick={editAssignmentModal.open}>
+              <EditIcon />
+            </IconButton>
+          </Box>
+        )}
         <Box mx={1}>
           <IconButton title="Submit">
             <PublishIcon />
@@ -37,28 +39,34 @@ const AssignmentActions = (props) => {
             <HistoryIcon />
           </IconButton>
         </Box>
-        <Box ml={1}>
-          <IconButton title="Delete" onClick={deleteModal.open}>
-            <DeleteIcon />
-          </IconButton>
-        </Box>
+        {props.isStaff && (
+          <Box ml={1}>
+            <IconButton title="Delete" onClick={deleteModal.open}>
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        )}
       </Box>
-      <EditAssignmentModal
-        modalProps={{
-          open: editAssignmentModal.visible,
-          onClose: editAssignmentModal.close,
-        }}
-        assignment={props.assignment}
-        updateAssignment={props.updateAssignment}
-      />
-      <DeleteAssignmentModal
-        modalProps={{
-          open: deleteModal.visible,
-          onClose: deleteModal.close,
-        }}
-        assignment={props.assignment}
-        deleteAssignment={props.deleteAssignment}
-      />
+      {props.isStaff && (
+        <React.Fragment>
+          <EditAssignmentModal
+            modalProps={{
+              open: editAssignmentModal.visible,
+              onClose: editAssignmentModal.close,
+            }}
+            assignment={props.assignment}
+            updateAssignment={props.updateAssignment}
+          />
+          <DeleteAssignmentModal
+            modalProps={{
+              open: deleteModal.visible,
+              onClose: deleteModal.close,
+            }}
+            assignment={props.assignment}
+            deleteAssignment={props.deleteAssignment}
+          />
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

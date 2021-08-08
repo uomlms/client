@@ -98,6 +98,9 @@ const CourseDetails = (props) => {
             fullWidth
             value={courseData?.name ? courseData.name : ''}
             onChange={(event) => handleCourseDataChanged(event, 'name')}
+            InputProps={{
+              readOnly: !props.isStaff,
+            }}
             InputLabelProps={{
               shrink: true,
             }}
@@ -109,6 +112,9 @@ const CourseDetails = (props) => {
             fullWidth
             value={courseData?.professor ? courseData.professor : ''}
             onChange={(event) => handleCourseDataChanged(event, 'professor')}
+            InputProps={{
+              readOnly: !props.isStaff,
+            }}
             InputLabelProps={{
               shrink: true,
             }}
@@ -121,6 +127,9 @@ const CourseDetails = (props) => {
             fullWidth
             value={courseData?.semester ? courseData.semester : ''}
             onChange={(event) => handleCourseDataChanged(event, 'semester')}
+            InputProps={{
+              readOnly: !props.isStaff,
+            }}
             InputLabelProps={{
               shrink: true,
             }}
@@ -134,31 +143,38 @@ const CourseDetails = (props) => {
             row={4}
             value={courseData?.description ? courseData.description : ''}
             onChange={(event) => handleCourseDataChanged(event, 'description')}
+            InputProps={{
+              readOnly: !props.isStaff,
+            }}
             InputLabelProps={{
               shrink: true,
             }}
           />
         </Grid>
-        <Grid item md={12}>
-          <Box display="flex" justifyContent="flex-end">
-            <Box mr={1}>
-              <SuccessButton onClick={handleSaveClicked}>Save</SuccessButton>
+        {props.isStaff && (
+          <Grid item md={12}>
+            <Box display="flex" justifyContent="flex-end">
+              <Box mr={1}>
+                <SuccessButton onClick={handleSaveClicked}>Save</SuccessButton>
+              </Box>
+              <Box ml={1}>
+                <DangerButton onClick={() => modal.open()}>Delete</DangerButton>
+              </Box>
             </Box>
-            <Box ml={1}>
-              <DangerButton onClick={() => modal.open()}>Delete</DangerButton>
-            </Box>
-          </Box>
-        </Grid>
+          </Grid>
+        )}
       </Grid>
-      <Assignments course={props.selectedCourse} />
-      <DeleteCourseModal
-        modalProps={{
-          open: modal.visible,
-          onClose: modal.close,
-        }}
-        course={props.selectedCourse}
-        handleDeleteClicked={handleDeleteClicked}
-      />
+      <Assignments course={props.selectedCourse} isStaff={props.isStaff} />
+      {props.isStaff && (
+        <DeleteCourseModal
+          modalProps={{
+            open: modal.visible,
+            onClose: modal.close,
+          }}
+          course={props.selectedCourse}
+          handleDeleteClicked={handleDeleteClicked}
+        />
+      )}
     </React.Fragment>
   );
 

@@ -13,7 +13,7 @@ import useRequest from '../../hooks/use-request';
  * @param {Object} props
  * @returns {JSX.Element}
  */
-const Assignments = ({ course }) => {
+const Assignments = ({ course, isStaff }) => {
   const [assignments, setAssignments] = useState([]);
   const modal = useModal();
 
@@ -102,23 +102,28 @@ const Assignments = ({ course }) => {
             Assignmnents
           </Typography>
         </Box>
-        <Button color="primary" onClick={modal.open}>
-          Create assignment
-        </Button>
+        {isStaff && (
+          <Button color="primary" onClick={modal.open}>
+            Create assignment
+          </Button>
+        )}
       </Box>
       <AssignmentTable
         assignments={assignments}
         updateAssignment={updateAssignment}
         deleteAssignment={deleteAssignment}
+        isStaff={isStaff}
       />
-      <CreateAssignmentModal
-        modalProps={{
-          open: modal.visible,
-          onClose: modal.close,
-        }}
-        course={course}
-        createAssignment={createAssignment}
-      />
+      {isStaff && (
+        <CreateAssignmentModal
+          modalProps={{
+            open: modal.visible,
+            onClose: modal.close,
+          }}
+          course={course}
+          createAssignment={createAssignment}
+        />
+      )}
     </Box>
   );
 };

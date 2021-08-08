@@ -11,6 +11,7 @@ import useClient from '../hooks/use-client';
  */
 const CoursesPage = ({ currentUser, courses }) => {
   const router = useRouter();
+  const isStaff = currentUser.role === 'staff';
 
   useEffect(() => {
     // Redirects the user to the welcome page if he is not authenticated
@@ -19,7 +20,7 @@ const CoursesPage = ({ currentUser, courses }) => {
     }
   }, [currentUser]);
 
-  return <Courses courses={courses} />;
+  return <Courses courses={courses} isStaff={isStaff} />;
 };
 
 /**
