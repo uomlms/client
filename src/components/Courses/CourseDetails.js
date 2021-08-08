@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
@@ -19,9 +19,14 @@ import useRequest from '../../hooks/use-request';
  */
 const CourseDetails = (props) => {
   const modal = useModal();
-  const { courseData, setCourseData, handleCourseDataChanged } = useCourseData({
-    ...props.selectedCourse,
-  });
+  const { courseData, setCourseData, handleCourseDataChanged } = useCourseData(
+    props.selectedCourse
+  );
+
+  // Sets the course data with the data of the selected course if it's not the same course
+  if (props.selectedCourse?.id !== courseData?.id) {
+    setCourseData(props.selectedCourse);
+  }
 
   /**
    * Handles the execution and the error of the PATCH request to the courses service
@@ -45,11 +50,6 @@ const CourseDetails = (props) => {
     url: `/api/courses/${props.selectedCourse?.id}`,
     method: 'delete',
   });
-
-  // Sets the course data with the data of the selected course
-  useEffect(() => {
-    setCourseData({ ...props.selectedCourse });
-  }, [props.selectedCourse]);
 
   /**
    * Handles the click event of the Save button.

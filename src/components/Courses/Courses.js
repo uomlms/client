@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
@@ -16,14 +16,9 @@ import useModal from '../../hooks/use-modal';
  * @returns {JSX.Element}
  */
 const Courses = (props) => {
-  const [courses, setCourses] = useState([...props.courses]);
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [courses, setCourses] = useState(props.courses);
+  const [selectedCourse, setSelectedCourse] = useState(courses.length > 0 ? courses[0] : null);
   const modal = useModal();
-
-  useEffect(() => {
-    // Sets the default selected course to be the first one when the component is rendered
-    setSelectedCourse(courses.length > 0 ? courses[0] : null);
-  }, [courses]);
 
   /**
    * Sets the new selected course in the component's state
@@ -44,6 +39,11 @@ const Courses = (props) => {
     setCourses((prevCourses) => {
       const updatedCourses = [...prevCourses];
       updatedCourses.push({ ...newCourse });
+
+      if (prevCourses.length === 0) {
+        setSelectedCourse(updatedCourses[0]);
+      }
+
       return updatedCourses;
     });
   };
@@ -74,6 +74,9 @@ const Courses = (props) => {
     setCourses((prevCourses) => {
       let updatedCourses = [...prevCourses];
       updatedCourses = updatedCourses.filter((course) => course.id !== courseId);
+
+      setSelectedCourse(updatedCourses.length > 0 ? updatedCourses[0] : null);
+
       return updatedCourses;
     });
   };
