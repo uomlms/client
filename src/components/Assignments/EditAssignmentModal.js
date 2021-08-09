@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
 import AssignmentForm from './AssignmentForm';
@@ -13,6 +14,7 @@ import useAssignmentData from '../../hooks/use-assignment-data';
  * @returns {JSX.Element}
  */
 const EditAssignmentModal = ({ assignment, updateAssignment, modalProps }) => {
+  const [configFile, setConfigFile] = useState();
   const { assignmentData, setAssignmentData, clearAssignmentData, handleAssignmentFieldChanged } =
     useAssignmentData(assignment);
 
@@ -46,6 +48,14 @@ const EditAssignmentModal = ({ assignment, updateAssignment, modalProps }) => {
 
     updateAssignment(updatedAssignment);
     clearAssignmentData();
+
+    /**
+     * @todo
+     *
+     * Send config file
+     */
+    console.log(configFile);
+
     modalProps.onClose();
   };
 
@@ -68,6 +78,7 @@ const EditAssignmentModal = ({ assignment, updateAssignment, modalProps }) => {
       <AssignmentForm
         assignment={assignmentData}
         handleAssignmentFieldChanged={handleAssignmentFieldChanged}
+        handleConfigFileChanged={(event) => setConfigFile(event.target?.files?.[0])}
       />
     </Dialog>
   );

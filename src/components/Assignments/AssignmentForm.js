@@ -1,6 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import TextField from '../UI/TextField';
 import Select from '../UI/Select';
+import FileInput from '../UI/FileInput';
 
 /**
  * Renders a form with the fields the Assignment has
@@ -8,15 +9,15 @@ import Select from '../UI/Select';
  * @param {Object} props
  * @returns {JSX.Element}
  */
-const AssignmentForm = ({ assignment, handleAssignmentFieldChanged }) => {
+const AssignmentForm = (props) => {
   return (
     <Grid container spacing={1}>
       <Grid item md={4}>
         <TextField
           label="Name"
           fullWidth
-          value={assignment?.name ?? ''}
-          onChange={(event) => handleAssignmentFieldChanged(event, 'name')}
+          value={props.assignment?.name ?? ''}
+          onChange={(event) => props.handleAssignmentFieldChanged(event, 'name')}
         />
       </Grid>
       <Grid item md={4}>
@@ -26,8 +27,8 @@ const AssignmentForm = ({ assignment, handleAssignmentFieldChanged }) => {
           }}
           selectProps={{
             label: 'Type',
-            value: assignment?.type ?? '',
-            onChange: (event) => handleAssignmentFieldChanged(event, 'type'),
+            value: props.assignment?.type ?? '',
+            onChange: (event) => props.handleAssignmentFieldChanged(event, 'type'),
           }}
           options={[
             { value: 'obligatory', text: 'obligatory' },
@@ -43,8 +44,8 @@ const AssignmentForm = ({ assignment, handleAssignmentFieldChanged }) => {
           InputLabelProps={{
             shrink: true,
           }}
-          value={assignment?.deadline.match(/\d{4}-\d{2}-\d{2}/)?.pop() ?? ''}
-          onChange={(event) => handleAssignmentFieldChanged(event, 'deadline')}
+          value={props.assignment?.deadline.match(/\d{4}-\d{2}-\d{2}/)?.pop() ?? ''}
+          onChange={(event) => props.handleAssignmentFieldChanged(event, 'deadline')}
         />
       </Grid>
       <Grid item md={12}>
@@ -53,12 +54,19 @@ const AssignmentForm = ({ assignment, handleAssignmentFieldChanged }) => {
           fullWidth
           multiline
           row={4}
-          value={assignment?.description ?? ''}
-          onChange={(event) => handleAssignmentFieldChanged(event, 'description')}
+          value={props.assignment?.description ?? ''}
+          onChange={(event) => props.handleAssignmentFieldChanged(event, 'description')}
         />
       </Grid>
       <Grid item md={12}>
-        UPLOAD CONFIGURATION FILE
+        <FileInput
+          styleProps={{
+            color: 'secondary',
+            variant: 'extended',
+            size: 'medium',
+          }}
+          onChange={props.handleConfigFileChanged}
+        />
       </Grid>
     </Grid>
   );

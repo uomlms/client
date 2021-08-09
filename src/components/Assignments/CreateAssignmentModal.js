@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
 import AssignmentForm from './AssignmentForm';
@@ -14,6 +15,7 @@ import useAssignmentData from '../../hooks/use-assignment-data';
  */
 const CreateAssignmentModal = ({ course, createAssignment, modalProps }) => {
   const { assignmentData, clearAssignmentData, handleAssignmentFieldChanged } = useAssignmentData();
+  const [configFile, setConfigFile] = useState(null);
 
   /**
    * Handles the execution and the errors of the POST request to the courses services
@@ -33,6 +35,8 @@ const CreateAssignmentModal = ({ course, createAssignment, modalProps }) => {
    * and adds it to the assignment state.
    */
   const handleCreateClicked = async () => {
+    console.log(configFile);
+
     const newAssignment = await sendRequest();
     if (!newAssignment) {
       return;
@@ -40,6 +44,13 @@ const CreateAssignmentModal = ({ course, createAssignment, modalProps }) => {
 
     clearAssignmentData();
     createAssignment(newAssignment);
+
+    /**
+     * @todo
+     *
+     * Submit the file here
+     */
+
     modalProps.onClose();
   };
 
@@ -62,6 +73,7 @@ const CreateAssignmentModal = ({ course, createAssignment, modalProps }) => {
       <AssignmentForm
         assignment={assignmentData}
         handleAssignmentFieldChanged={handleAssignmentFieldChanged}
+        handleConfigFileChanged={(event) => setConfigFile(event.target?.files?.[0])}
       />
     </Dialog>
   );
