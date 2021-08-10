@@ -9,7 +9,7 @@ import { useState } from 'react';
  * @param {object} param0
  * @returns {object} The function that executes the request and the errors
  */
-const useRequest = ({ url, method, body, onSuccess }) => {
+const useRequest = ({ url, method, body, config, onSuccess }) => {
   const [errors, setErrors] = useState(null);
 
   /**
@@ -18,7 +18,7 @@ const useRequest = ({ url, method, body, onSuccess }) => {
   const sendRequest = async () => {
     try {
       setErrors(null);
-      const response = await axios[method](url, body);
+      const response = await axios[method](url, body, config);
 
       if (onSuccess) {
         onSuccess(response.data);
