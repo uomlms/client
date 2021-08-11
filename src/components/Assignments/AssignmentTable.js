@@ -46,6 +46,7 @@ const AssignmentTable = (props) => {
             assignment={assignment}
             updateAssignment={props.updateAssignment}
             deleteAssignment={props.deleteAssignment}
+            uploadConfigFile={props.uploadConfigFile}
             isStaff={props.isStaff}
           >
             {assignment.actions}

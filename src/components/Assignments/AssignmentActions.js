@@ -56,6 +56,7 @@ const AssignmentActions = (props) => {
             }}
             assignment={props.assignment}
             updateAssignment={props.updateAssignment}
+            uploadConfigFile={props.uploadConfigFile}
           />
           <DeleteAssignmentModal
             modalProps={{

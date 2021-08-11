@@ -13,14 +13,14 @@ import useAssignmentData from '../../hooks/use-assignment-data';
  * @param {Object} props
  * @returns {JSX.Element}
  */
-const EditAssignmentModal = ({ assignment, updateAssignment, modalProps }) => {
+const EditAssignmentModal = (props) => {
   const [configFile, setConfigFile] = useState();
   const { assignmentData, setAssignmentData, clearAssignmentData, handleAssignmentFieldChanged } =
-    useAssignmentData(assignment);
+    useAssignmentData(props.assignment);
 
   // Sets the assignment data with the data of the current assignment if it's not the same
-  if (assignment.id !== assignmentData.id) {
-    setAssignmentData(assignment);
+  if (props.assignment.id !== assignmentData.id) {
+    setAssignmentData(props.assignment);
   }
 
   /**
@@ -46,17 +46,14 @@ const EditAssignmentModal = ({ assignment, updateAssignment, modalProps }) => {
       return;
     }
 
-    updateAssignment(updatedAssignment);
+    props.updateAssignment(updatedAssignment);
+
+    if (configFile) {
+      props.uploadConfigFile(updatedAssignment, configFile);
+    }
+
     clearAssignmentData();
-
-    /**
-     * @todo
-     *
-     * Send config file
-     */
-    console.log(configFile);
-
-    modalProps.onClose();
+    props.modalProps.onClose();
   };
 
   const updateAssignmentError =
@@ -69,7 +66,7 @@ const EditAssignmentModal = ({ assignment, updateAssignment, modalProps }) => {
 
   return (
     <Dialog
-      {...modalProps}
+      {...props.modalProps}
       title="Edit assignment"
       maxWidth="md"
       actions={<SuccessButton onClick={handleSaveClicked}>Save</SuccessButton>}
@@ -78,7 +75,7 @@ const EditAssignmentModal = ({ assignment, updateAssignment, modalProps }) => {
       <AssignmentForm
         assignment={assignmentData}
         handleAssignmentFieldChanged={handleAssignmentFieldChanged}
-        handleConfigFileChanged={(event) => setConfigFile(event.target?.files?.[0])}
+        handleConfigFileChanged={(files) => setConfigFile(files.pop())}
       />
     </Dialog>
   );

@@ -1,7 +1,7 @@
 import Grid from '@material-ui/core/Grid';
+import { DropzoneArea } from 'material-ui-dropzone';
 import TextField from '../UI/TextField';
 import Select from '../UI/Select';
-import FileInput from '../UI/FileInput';
 
 /**
  * Renders a form with the fields the Assignment has
@@ -31,8 +31,8 @@ const AssignmentForm = (props) => {
             onChange: (event) => props.handleAssignmentFieldChanged(event, 'type'),
           }}
           options={[
-            { value: 'obligatory', text: 'obligatory' },
-            { value: 'optional', text: 'optional' },
+            { value: 'obligatory', text: 'Obligatory' },
+            { value: 'optional', text: 'Optional' },
           ]}
         />
       </Grid>
@@ -59,13 +59,14 @@ const AssignmentForm = (props) => {
         />
       </Grid>
       <Grid item md={12}>
-        <FileInput
-          styleProps={{
-            color: 'secondary',
-            variant: 'extended',
-            size: 'medium',
-          }}
-          onChange={props.handleConfigFileChanged}
+        <DropzoneArea
+          dropzoneText="Drag and drop the configuration file for this assignment"
+          // initialFiles={[props.assignment.configFile]}
+          // acceptedFiles={[]} // A list of files to accept
+          filesLimit={1}
+          showAlerts={false}
+          showFileNames={true}
+          onChange={(files) => props.handleConfigFileChanged(files)}
         />
       </Grid>
     </Grid>

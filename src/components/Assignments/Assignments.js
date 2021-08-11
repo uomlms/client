@@ -6,6 +6,7 @@ import AssignmentTable from './AssignmentTable';
 import CreateAssignmentModal from './CreateAssignmentModal';
 import useModal from '../../hooks/use-modal';
 import useRequest from '../../hooks/use-request';
+import useClient from '../../hooks/use-client';
 
 /**
  * Renders the information and actions for the assignments of the selected course
@@ -16,6 +17,7 @@ import useRequest from '../../hooks/use-request';
 const Assignments = ({ course, isStaff }) => {
   const [assignments, setAssignments] = useState([]);
   const modal = useModal();
+  const client = useClient();
 
   /**
    * Handles the execution and the errors of the GET request to the courses service
@@ -40,6 +42,30 @@ const Assignments = ({ course, isStaff }) => {
 
     getAssignments();
   }, [course]);
+
+  /**
+   * Uploads the configuration file for the given assignment
+   *
+   * @param {Object} assignment
+   */
+  const uploadConfigFile = async (assignment, configFile) => {
+    try {
+      const formData = new FormData();
+      formData.append('assignment', assignment.id);
+      formData.append('config', configFile);
+      await client.post(
+        `/api/courses/${course.id}/assignments/${assignment.id}/upload/config`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   /**
    * Adds the new given assignment to the assignments state
@@ -112,6 +138,7 @@ const Assignments = ({ course, isStaff }) => {
         assignments={assignments}
         updateAssignment={updateAssignment}
         deleteAssignment={deleteAssignment}
+        uploadConfigFile={uploadConfigFile}
         isStaff={isStaff}
       />
       {isStaff && (
@@ -122,6 +149,7 @@ const Assignments = ({ course, isStaff }) => {
           }}
           course={course}
           createAssignment={createAssignment}
+          uploadConfigFile={uploadConfigFile}
         />
       )}
     </Box>

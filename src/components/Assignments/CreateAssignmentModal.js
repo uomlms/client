@@ -6,7 +6,6 @@ import Dialog from '../UI/Dialog';
 import SuccessButton from '../UI/Buttons/SuccessButton';
 import useRequest from '../../hooks/use-request';
 import useAssignmentData from '../../hooks/use-assignment-data';
-import useClient from '../../hooks/use-client';
 
 /**
  * Renders the Create Assignment modal from which the user can create an assignment
@@ -14,10 +13,9 @@ import useClient from '../../hooks/use-client';
  * @param {Object} props
  * @returns {JSX.Element}
  */
-const CreateAssignmentModal = ({ course, createAssignment, modalProps }) => {
+const CreateAssignmentModal = (props) => {
   const { assignmentData, clearAssignmentData, handleAssignmentFieldChanged } = useAssignmentData();
-  const [configFile, setConfigFile] = useState(null);
-  const client = useClient();
+  const [configFile, setConfigFile] = useState();
 
   /**
    * Handles the execution and the errors of the POST request to the courses services
@@ -26,7 +24,7 @@ const CreateAssignmentModal = ({ course, createAssignment, modalProps }) => {
    * @type {Object}
    */
   const createAssignmentReq = useRequest({
-    url: `/api/courses/${course?.id}/assignments`,
+    url: `/api/courses/${props.course?.id}/assignments`,
     method: 'post',
     body: { ...assignmentData },
   });
@@ -42,25 +40,14 @@ const CreateAssignmentModal = ({ course, createAssignment, modalProps }) => {
       return;
     }
 
-    createAssignment(newAssignment);
+    props.createAssignment(newAssignment);
 
-    try {
-      const formData = new FormData();
-      formData.append('assignment', newAssignment.id);
-      formData.append('config', configFile);
-      const response = await client.post(
-        `/api/courses/${course.id}/assignments/${newAssignment.id}/upload/config`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-    } catch (error) {}
+    if (configFile) {
+      props.uploadConfigFile(newAssignment, configFile);
+    }
 
     clearAssignmentData();
-    modalProps.onClose();
+    props.modalProps.onClose();
   };
 
   const createAssignmentErrors =
@@ -72,19 +59,21 @@ const CreateAssignmentModal = ({ course, createAssignment, modalProps }) => {
     ));
 
   return (
-    <Dialog
-      {...modalProps}
-      title="Create assignment"
-      maxWidth="md"
-      actions={<SuccessButton onClick={handleCreateClicked}>Create</SuccessButton>}
-    >
-      {createAssignmentErrors}
-      <AssignmentForm
-        assignment={assignmentData}
-        handleAssignmentFieldChanged={handleAssignmentFieldChanged}
-        handleConfigFileChanged={(event) => setConfigFile(event.target?.files?.[0])}
-      />
-    </Dialog>
+    <div>
+      <Dialog
+        {...props.modalProps}
+        title="Create assignment"
+        maxWidth="md"
+        actions={<SuccessButton onClick={handleCreateClicked}>Create</SuccessButton>}
+      >
+        {createAssignmentErrors}
+        <AssignmentForm
+          assignment={assignmentData}
+          handleAssignmentFieldChanged={handleAssignmentFieldChanged}
+          handleConfigFileChanged={(files) => setConfigFile(files.pop())}
+        />
+      </Dialog>
+    </div>
   );
 };
 
