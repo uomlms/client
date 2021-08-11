@@ -67,7 +67,7 @@ const EditAssignmentModal = (props) => {
   return (
     <Dialog
       {...props.modalProps}
-      title="Edit assignment"
+      title={`Edit assignment ${props.assignment.name}`}
       maxWidth="md"
       actions={<SuccessButton onClick={handleSaveClicked}>Save</SuccessButton>}
     >

@@ -6,6 +6,7 @@ import HistoryIcon from '@material-ui/icons/History';
 import PublishIcon from '@material-ui/icons/Publish';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditAssignmentModal from './EditAssignmentModal';
+import SubmitAssignmentModal from './SubmitAssignmentModal';
 import DeleteAssignmentModal from './DeleteAssignmentModal';
 import useModal from '../../hooks/use-modal';
 
@@ -16,7 +17,8 @@ import useModal from '../../hooks/use-modal';
  * @returns {JSX.Element}
  */
 const AssignmentActions = (props) => {
-  const editAssignmentModal = useModal();
+  const editModal = useModal();
+  const submitModal = useModal();
   const deleteModal = useModal();
 
   return (
@@ -24,13 +26,13 @@ const AssignmentActions = (props) => {
       <Box display="flex" justifyContent="flex-end">
         {props.isStaff && (
           <Box mx={1}>
-            <IconButton title="Edit" onClick={editAssignmentModal.open}>
+            <IconButton title="Edit" onClick={editModal.open}>
               <EditIcon />
             </IconButton>
           </Box>
         )}
         <Box mx={1}>
-          <IconButton title="Submit">
+          <IconButton title="Submit" onClick={submitModal.open}>
             <PublishIcon />
           </IconButton>
         </Box>
@@ -47,12 +49,13 @@ const AssignmentActions = (props) => {
           </Box>
         )}
       </Box>
+
       {props.isStaff && (
         <React.Fragment>
           <EditAssignmentModal
             modalProps={{
-              open: editAssignmentModal.visible,
-              onClose: editAssignmentModal.close,
+              open: editModal.visible,
+              onClose: editModal.close,
             }}
             assignment={props.assignment}
             updateAssignment={props.updateAssignment}
@@ -68,6 +71,14 @@ const AssignmentActions = (props) => {
           />
         </React.Fragment>
       )}
+
+      <SubmitAssignmentModal
+        modalProps={{
+          open: submitModal.visible,
+          onClose: submitModal.close,
+        }}
+        assignment={props.assignment}
+      />
     </React.Fragment>
   );
 };
