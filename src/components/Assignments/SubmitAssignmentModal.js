@@ -21,7 +21,7 @@ const SubmitAssignmentModal = (props) => {
 
   /**
    * Handles the execution and the errors of the POST request to the courses services
-   * that creates an assignment.
+   * that submits an assignment.
    *
    * @type {Object}
    */

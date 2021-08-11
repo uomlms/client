@@ -7,6 +7,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditAssignmentModal from './EditAssignmentModal';
 import SubmitAssignmentModal from './SubmitAssignmentModal';
+import AssignmentHistoryModal from './AssignmentHistoryModal';
 import DeleteAssignmentModal from './DeleteAssignmentModal';
 import useModal from '../../hooks/use-modal';
 
@@ -19,6 +20,7 @@ import useModal from '../../hooks/use-modal';
 const AssignmentActions = (props) => {
   const editModal = useModal();
   const submitModal = useModal();
+  const historyModal = useModal();
   const deleteModal = useModal();
 
   return (
@@ -37,7 +39,7 @@ const AssignmentActions = (props) => {
           </IconButton>
         </Box>
         <Box ml={1}>
-          <IconButton title="History">
+          <IconButton title="History" onClick={historyModal.open}>
             <HistoryIcon />
           </IconButton>
         </Box>
@@ -76,6 +78,13 @@ const AssignmentActions = (props) => {
         modalProps={{
           open: submitModal.visible,
           onClose: submitModal.close,
+        }}
+        assignment={props.assignment}
+      />
+      <AssignmentHistoryModal
+        modalProps={{
+          open: historyModal.visible,
+          onClose: historyModal.close,
         }}
         assignment={props.assignment}
       />
