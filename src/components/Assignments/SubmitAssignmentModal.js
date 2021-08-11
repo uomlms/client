@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
 import { DropzoneArea } from 'material-ui-dropzone';
@@ -12,12 +12,23 @@ import useRequest from '../../hooks/use-request';
  * @param {Object} props
  * @returns {JSX.Element}
  */
-const CreateAssignmentModal = (props) => {
+const SubmitAssignmentModal = (props) => {
   const [file, setFile] = useState();
+
+  // The form data used in the submit assignment request
+  const formData = new FormData();
+  formData.append('source', file);
+
+  /**
+   * Handles the execution and the errors of the POST request to the courses services
+   * that creates an assignment.
+   *
+   * @type {Object}
+   */
   const { sendRequest, errors } = useRequest({
     url: `/api/courses/${props.assignment.course}/assignments/${props.assignment.id}/submit`,
     method: 'post',
-    body: new FormData().append('source', file),
+    body: formData,
     config: {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -36,6 +47,7 @@ const CreateAssignmentModal = (props) => {
       return;
     }
 
+    setFile(null);
     props.modalProps.onClose();
   };
 
@@ -70,4 +82,4 @@ const CreateAssignmentModal = (props) => {
   );
 };
 
-export default CreateAssignmentModal;
+export default SubmitAssignmentModal;

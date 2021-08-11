@@ -44,6 +44,7 @@ const CreateAssignmentModal = (props) => {
 
     if (configFile) {
       props.uploadConfigFile(newAssignment, configFile);
+      setConfigFile(null);
     }
 
     clearAssignmentData();

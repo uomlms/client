@@ -50,9 +50,12 @@ const Assignments = ({ course, isStaff }) => {
    */
   const uploadConfigFile = async (assignment, configFile) => {
     try {
+      const formData = new FormData();
+      formData.append('assignment', assignment.id);
+      formData.append('config', configFile);
       await client.post(
         `/api/courses/${course.id}/assignments/${assignment.id}/upload/config`,
-        new FormData().append('assignment', assignment.id).append('config', configFile),
+        formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data',

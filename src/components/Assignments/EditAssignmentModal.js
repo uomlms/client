@@ -50,6 +50,7 @@ const EditAssignmentModal = (props) => {
 
     if (configFile) {
       props.uploadConfigFile(updatedAssignment, configFile);
+      setConfigFile(null);
     }
 
     clearAssignmentData();
