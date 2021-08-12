@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Box from '@material-ui/core/Box';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Alert from '@material-ui/lab/Alert';
 import Dialog from '../UI/Dialog';
@@ -59,18 +57,33 @@ const AssignmentHistoryModal = (props) => {
       >
         {errorMessages}
         {submissions ? (
-          <List>
-            {submissions.map((submission) => (
-              <React.Fragment key={submission.id}>
-                <ListItem key={submission.id}>
-                  <ListItemText
-                    primary={`Submission id: ${submission.id} Status: ${submission.status}`}
-                  />
-                </ListItem>
-                <Divider />
-              </React.Fragment>
-            ))}
-          </List>
+          <Box>
+            <Typography>
+              Number of submissions: <strong>{submissions.length}</strong>
+            </Typography>
+            <Divider />
+
+            {submissions.map((submission) => {
+              const createdAtDate = submission.createdAt.match(/\d{4}-\d{2}-\d{2}/).pop();
+              const createdAtTime = submission.createdAt.match(/\d{2}:\d{2}:\d{2}/).pop();
+
+              let borderColor = 'error.main';
+              if (submission.status === 'pending') {
+                borderColor = 'warning.main';
+              } else if (submission.status === 'success') {
+                borderColor = 'success.main';
+              }
+
+              return (
+                <Box key={submission.id} m={1} pl={1} borderLeft={5} borderColor={borderColor}>
+                  <Typography>
+                    Submitted at: {createdAtDate} {createdAtTime}
+                  </Typography>
+                  <Typography>Status: {submission.status}</Typography>
+                </Box>
+              );
+            })}
+          </Box>
         ) : (
           <Alert severity="info">No submissions found</Alert>
         )}
