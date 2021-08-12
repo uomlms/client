@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { AppBar as MuiAppBar, makeStyles } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -6,7 +7,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Link from 'next/link';
 
 /**
  * Creates the styles that can be used by the AppBar component
@@ -39,12 +39,12 @@ const AppBar = (props) => {
    */
   const anonymousButtons = (
     <React.Fragment>
-      <Button color="inherit">
-        <Link href="/auth/signin">Sign In</Link>
-      </Button>
-      <Button color="inherit">
-        <Link href="/auth/signup">Sign Up</Link>
-      </Button>
+      <Link href="/auth/signin">
+        <Button color="inherit">Sign In</Button>
+      </Link>
+      <Link href="/auth/signup">
+        <Button color="inherit">Sign Up</Button>
+      </Link>
     </React.Fragment>
   );
 
@@ -77,9 +77,13 @@ const AppBar = (props) => {
             </IconButton>
           </Hidden>
         )}
-        <Typography variant="h6" noWrap className={classes.title}>
-          UOMLMS {props.title && `| ${props.title}`}
-        </Typography>
+        <Link href="/">
+          <a className={classes.title}>
+            <Typography variant="h6" noWrap>
+              UOMLMS {props.title && `| ${props.title}`}
+            </Typography>
+          </a>
+        </Link>
 
         {props.isAuthenticated ? authenticatedButtons : anonymousButtons}
       </Toolbar>
