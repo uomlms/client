@@ -18,7 +18,7 @@ const CreateCourseModal = (props) => {
 
   /**
    * Handles the execution and the errors of the POST request to the courses
-   * service tha creates a course.
+   * service that creates a course.
    *
    * @type {Object}
    */

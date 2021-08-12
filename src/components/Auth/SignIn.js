@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
 import TextField from '../UI/TextField';
@@ -19,8 +17,16 @@ import useRequest from '../../hooks/use-request';
  * the sign in request to the authentication service.
  */
 const SignIn = () => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  /**
+   * Handles the execution and the errors of the POST request to the authentication
+   * service that signs in a user.
+   *
+   * @type {Object}
+   */
   const { sendRequest, errors } = useRequest({
     url: '/api/users/signin',
     method: 'post',
@@ -28,7 +34,7 @@ const SignIn = () => {
       email,
       password,
     },
-    onSuccess: () => Router.push('/'),
+    onSuccess: () => router.push('/'),
   });
 
   /**
@@ -82,12 +88,6 @@ const SignIn = () => {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </Grid>
-              {/* <Grid item>
-                <FormControlLabel
-                  control={<Checkbox name="remember-me-checkbox" color="primary" />}
-                  label="Remember me"
-                />
-              </Grid> */}
               <Grid item>
                 <Button color="primary" fullWidth onClick={handleSignInClicked}>
                   Sign in

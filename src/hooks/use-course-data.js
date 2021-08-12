@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 /**
  * Handles the data and state of the given course
  *
- * @param {object} currentCourse
- * @returns {object}
+ * @param {Object} currentCourse
+ * @returns {Object}
  */
 const useCourseData = (currentCourse) => {
   const defaultCourseState = {
@@ -30,7 +30,7 @@ const useCourseData = (currentCourse) => {
    * Handles the change event of the input elements in the modal and updates
    * the new course state
    *
-   * @param {object} event
+   * @param {Object} event
    * @param {string} field
    */
   const handleCourseDataChanged = (event, field) => {

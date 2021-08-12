@@ -3,7 +3,7 @@ import { useState } from 'react';
 /**
  * Create a sample modal state and basic utilities for a modal
  *
- * @returns {object} The state for modal and utility function like open and close
+ * @returns {Object} The state for modal and utility function like open and close
  */
 const useModal = () => {
   const [visible, setVisible] = useState(false);

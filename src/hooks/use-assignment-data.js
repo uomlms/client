@@ -3,8 +3,8 @@ import { useState } from 'react';
 /**
  * Handles the data and state of the given assignment
  *
- * @param {object} currentAssignment
- * @returns {object}
+ * @param {Object} currentAssignment
+ * @returns {Object}
  */
 const useAssignmentData = (currentAssignment) => {
   const defaultAssignmentState = {
@@ -29,7 +29,7 @@ const useAssignmentData = (currentAssignment) => {
   /**
    * Handles the change of an assignment field in the assignment form
    *
-   * @param {object} event
+   * @param {Object} event
    * @param {string} field
    */
   const handleAssignmentFieldChanged = (event, field) => {

@@ -6,8 +6,8 @@ import { useState } from 'react';
  * 'sendRequest' is called, and handles the error state. Also executes a
  * given callback if the request is successful.
  *
- * @param {object} param0
- * @returns {object} The function that executes the request and the errors
+ * @param {Object} props
+ * @returns {Object} The function that executes the request and the errors
  */
 const useRequest = ({ url, method, body, config, onSuccess }) => {
   const [errors, setErrors] = useState(null);

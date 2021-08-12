@@ -78,7 +78,7 @@ const AppBar = (props) => {
           </Hidden>
         )}
         <Typography variant="h6" noWrap className={classes.title}>
-          UOMLMS
+          UOMLMS {props.title && `| ${props.title}`}
         </Typography>
 
         {props.isAuthenticated ? authenticatedButtons : anonymousButtons}

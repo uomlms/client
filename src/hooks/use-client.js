@@ -4,7 +4,7 @@ import axios from 'axios';
  * Creates and returns an Axios client with some default based on whether
  * the code is being executed on the server side or the client side.
  *
- * @param {object} context
+ * @param {Object} context
  * @returns {AxiosInstance}
  */
 const useClient = (context) => {

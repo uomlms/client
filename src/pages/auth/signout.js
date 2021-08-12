@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import useRequest from '../../hooks/use-request';
 
 /**
@@ -9,11 +9,19 @@ import useRequest from '../../hooks/use-request';
  * @returns {JSX.Element}
  */
 const SignOut = () => {
+  const router = useRouter();
+
+  /**
+   * Handles the execution and the errors of the POST request to the authentication
+   * service that signs out a user.
+   *
+   * @type {Object}
+   */
   const { sendRequest } = useRequest({
     url: '/api/users/signout',
     method: 'post',
     body: {},
-    onSuccess: () => Router.push('/'),
+    onSuccess: () => router.push('/'),
   });
 
   useEffect(() => {

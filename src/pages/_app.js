@@ -5,11 +5,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import PropTypes from 'prop-types';
 import AuthenticatedLayout from '../components/Layout/AuthenticatedLayout';
 import AnonymousLayout from '../components/Layout/AnonymousLayout';
-import useClient from '../hooks/use-client';
 import theme from '../theme';
 import '../styles/globals.scss';
 
-const AppComponent = ({ Component, pageProps, currentUser }) => {
+const AppComponent = ({ Component, pageProps }) => {
   useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -19,16 +18,16 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
   }, []);
 
   const authenticatedLayout = (
-    <AuthenticatedLayout currentUser={currentUser}>
+    <AuthenticatedLayout title={pageProps.title} currentUser={pageProps.currentUser}>
       <CssBaseline />
-      <Component {...pageProps} currentUser={currentUser} />
+      <Component {...pageProps} />
     </AuthenticatedLayout>
   );
 
   const anonymousLayout = (
     <AnonymousLayout>
       <CssBaseline />
-      <Component {...pageProps} currentUser={currentUser} />
+      <Component {...pageProps} />
     </AnonymousLayout>
   );
 
@@ -39,25 +38,10 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
-        {currentUser ? authenticatedLayout : anonymousLayout}
+        {pageProps.currentUser ? authenticatedLayout : anonymousLayout}
       </ThemeProvider>
     </React.Fragment>
   );
-};
-
-AppComponent.getInitialProps = async (appContext) => {
-  const client = useClient(appContext.ctx);
-  const { data } = await client.get('/api/users/currentuser');
-
-  let pageProps = {};
-  if (appContext.Component.getInitialProps) {
-    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
-  }
-
-  return {
-    pageProps,
-    ...data,
-  };
 };
 
 AppComponent.propTypes = {

@@ -32,15 +32,20 @@ const CoursesPage = ({ currentUser, courses }) => {
 export const getServerSideProps = async (context) => {
   const client = useClient(context);
   let courses = [];
+  let currentUser;
+
   try {
     const response = await client.get('/api/courses');
     courses = response.data;
+
+    const { data } = await client.get('/api/users/currentuser');
+    currentUser = data.currentUser ? data.currentUser : null;
   } catch (error) {
     console.log(error);
   }
 
   return {
-    props: { courses: courses },
+    props: { title: 'COURSES', courses: courses, currentUser: currentUser },
   };
 };
 

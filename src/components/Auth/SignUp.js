@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
@@ -17,9 +17,17 @@ import useRequest from '../../hooks/use-request';
  * the sign up request to the authentication service.
  */
 const SignUp = () => {
+  const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  /**
+   * Handles the execution and the errors of the POST request to the authentication
+   * service that signs up a user.
+   *
+   * @type {Object}
+   */
   const { sendRequest, errors } = useRequest({
     url: '/api/users/signup',
     method: 'post',
@@ -28,7 +36,7 @@ const SignUp = () => {
       email,
       password,
     },
-    onSuccess: () => Router.push('/'),
+    onSuccess: () => router.push('/'),
   });
 
   /**
