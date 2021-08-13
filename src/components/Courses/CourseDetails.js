@@ -1,10 +1,8 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Alert from '@material-ui/lab/Alert';
-import TextField from '../UI/TextField';
 import SuccessButton from '../UI/Buttons/SuccessButton';
 import DangerButton from '../UI/Buttons/DangerButton';
+import CourseForm from './CourseForm';
 import Assignments from '../Assignments/Assignments';
 import useCourseData from '../../hooks/use-course-data';
 import useModal from '../../hooks/use-modal';
@@ -75,95 +73,30 @@ const CourseDetails = (props) => {
     modal.close();
   };
 
-  const updateCourseErrors =
-    updateCourseReq.errors &&
-    updateCourseReq.errors.map((err) => (
-      <Box key={err.message} my={1}>
-        <Alert severity="error">{err.message}</Alert>
-      </Box>
-    ));
+  const updateCourseErrors = updateCourseReq.errors?.reduce((obj, error) => {
+    obj[error.field] = error.message;
+    return obj;
+  }, {});
 
   const courseDetails = (
     <React.Fragment>
-      <Grid container spacing={1}>
-        {updateCourseErrors && (
-          <Grid item md={12}>
-            {updateCourseErrors}
-          </Grid>
-        )}
+      <CourseForm
+        isStaff={props.isStaff}
+        course={courseData}
+        errors={updateCourseErrors}
+        handleCourseDataChanged={handleCourseDataChanged}
+      />
+      {props.isStaff && (
+        <Box pt={1} display="flex" justifyContent="flex-end">
+          <Box mr={1}>
+            <SuccessButton onClick={handleSaveClicked}>Save</SuccessButton>
+          </Box>
+          <Box ml={1}>
+            <DangerButton onClick={() => modal.open()}>Delete</DangerButton>
+          </Box>
+        </Box>
+      )}
 
-        <Grid item md={4}>
-          <TextField
-            label="Name"
-            fullWidth
-            value={courseData?.name ? courseData.name : ''}
-            onChange={(event) => handleCourseDataChanged(event, 'name')}
-            InputProps={{
-              readOnly: !props.isStaff,
-            }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item md={4}>
-          <TextField
-            label="Professor"
-            fullWidth
-            value={courseData?.professor ? courseData.professor : ''}
-            onChange={(event) => handleCourseDataChanged(event, 'professor')}
-            InputProps={{
-              readOnly: !props.isStaff,
-            }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item md={4}>
-          <TextField
-            type="number"
-            label="Semester"
-            fullWidth
-            value={courseData?.semester ? courseData.semester : ''}
-            onChange={(event) => handleCourseDataChanged(event, 'semester')}
-            InputProps={{
-              readOnly: !props.isStaff,
-            }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item md={12}>
-          <TextField
-            label="Description"
-            fullWidth
-            multiline
-            row={4}
-            value={courseData?.description ? courseData.description : ''}
-            onChange={(event) => handleCourseDataChanged(event, 'description')}
-            InputProps={{
-              readOnly: !props.isStaff,
-            }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        {props.isStaff && (
-          <Grid item md={12}>
-            <Box display="flex" justifyContent="flex-end">
-              <Box mr={1}>
-                <SuccessButton onClick={handleSaveClicked}>Save</SuccessButton>
-              </Box>
-              <Box ml={1}>
-                <DangerButton onClick={() => modal.open()}>Delete</DangerButton>
-              </Box>
-            </Box>
-          </Grid>
-        )}
-      </Grid>
       <Assignments course={props.selectedCourse} isStaff={props.isStaff} />
       {props.isStaff && (
         <DeleteCourseModal

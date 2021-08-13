@@ -53,15 +53,11 @@ const Assignments = ({ course, isStaff }) => {
       const formData = new FormData();
       formData.append('assignment', assignment.id);
       formData.append('config', configFile);
-      await client.post(
-        `/api/courses/${course.id}/assignments/${assignment.id}/upload/config`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
+      await client.post(`/api/courses/${course.id}/assignments/${assignment.id}/config`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
     } catch (error) {
       console.log(error);
     }

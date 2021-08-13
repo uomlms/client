@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { DropzoneArea } from 'material-ui-dropzone';
 import TextField from '../UI/TextField';
 import Select from '../UI/Select';
-import useRequest from '../../hooks/use-request';
 
 /**
  * Renders a form with the fields the Assignment has
@@ -12,30 +10,14 @@ import useRequest from '../../hooks/use-request';
  * @returns {JSX.Element}
  */
 const AssignmentForm = (props) => {
-  const { sendRequest } = useRequest({
-    url: props.assignment?.configFile,
-    method: 'get',
-  });
-
-  useEffect(() => {
-    const getConfigFileFromUrl = async () => {
-      try {
-        const response = await sendRequest();
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getConfigFileFromUrl();
-  }, []);
-
   return (
     <Grid container spacing={1}>
       <Grid item md={4}>
         <TextField
           label="Name"
           fullWidth
+          error={props.errors?.hasOwnProperty('name')}
+          helperText={props.errors?.hasOwnProperty('name') && props.errors.name}
           value={props.assignment?.name ?? ''}
           onChange={(event) => props.handleAssignmentFieldChanged(event, 'name')}
         />
@@ -44,7 +26,9 @@ const AssignmentForm = (props) => {
         <Select
           formControlProps={{
             fullWidth: true,
+            error: props.errors?.hasOwnProperty('type'),
           }}
+          helperText={props.errors?.hasOwnProperty('type') ? props.errors.type : null}
           selectProps={{
             label: 'Type',
             value: props.assignment?.type ?? '',
@@ -61,11 +45,13 @@ const AssignmentForm = (props) => {
           type="date"
           label="Deadline"
           fullWidth
+          error={props.errors?.hasOwnProperty('deadline')}
+          helperText={props.errors?.hasOwnProperty('deadline') && props.errors.deadline}
+          value={props.assignment?.deadline.match(/\d{4}-\d{2}-\d{2}/)?.pop() ?? ''}
+          onChange={(event) => props.handleAssignmentFieldChanged(event, 'deadline')}
           InputLabelProps={{
             shrink: true,
           }}
-          value={props.assignment?.deadline.match(/\d{4}-\d{2}-\d{2}/)?.pop() ?? ''}
-          onChange={(event) => props.handleAssignmentFieldChanged(event, 'deadline')}
         />
       </Grid>
       <Grid item md={12}>
@@ -73,6 +59,8 @@ const AssignmentForm = (props) => {
           label="Description"
           fullWidth
           multiline
+          error={props.errors?.hasOwnProperty('description')}
+          helperText={props.errors?.hasOwnProperty('description') && props.errors.description}
           row={4}
           value={props.assignment?.description ?? ''}
           onChange={(event) => props.handleAssignmentFieldChanged(event, 'description')}

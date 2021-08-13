@@ -118,6 +118,7 @@ const Courses = (props) => {
       {props.isStaff && (
         <CreateCourseModal
           modalProps={{ open: modal.visible, onClose: modal.close }}
+          isStaff={props.isStaff}
           createCourse={createCourse}
         />
       )}

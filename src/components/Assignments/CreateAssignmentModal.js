@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import Box from '@material-ui/core/Box';
-import Alert from '@material-ui/lab/Alert';
 import AssignmentForm from './AssignmentForm';
 import Dialog from '../UI/Dialog';
 import SuccessButton from '../UI/Buttons/SuccessButton';
@@ -23,7 +21,7 @@ const CreateAssignmentModal = (props) => {
    *
    * @type {Object}
    */
-  const createAssignmentReq = useRequest({
+  const { sendRequest, errors } = useRequest({
     url: `/api/courses/${props.course?.id}/assignments`,
     method: 'post',
     body: { ...assignmentData },
@@ -35,7 +33,7 @@ const CreateAssignmentModal = (props) => {
    * and adds it to the assignment state.
    */
   const handleCreateClicked = async () => {
-    const newAssignment = await createAssignmentReq.sendRequest();
+    const newAssignment = await sendRequest();
     if (!newAssignment) {
       return;
     }
@@ -51,13 +49,10 @@ const CreateAssignmentModal = (props) => {
     props.modalProps.onClose();
   };
 
-  const createAssignmentErrors =
-    createAssignmentReq.errors &&
-    createAssignmentReq.errors.map((err) => (
-      <Box key={err.message} my={1}>
-        <Alert severity="error">{err.message}</Alert>
-      </Box>
-    ));
+  const errorMessages = errors?.reduce((obj, error) => {
+    obj[error.field] = error.message;
+    return obj;
+  }, {});
 
   return (
     <div>
@@ -67,9 +62,9 @@ const CreateAssignmentModal = (props) => {
         maxWidth="md"
         actions={<SuccessButton onClick={handleCreateClicked}>Create</SuccessButton>}
       >
-        {createAssignmentErrors}
         <AssignmentForm
           assignment={assignmentData}
+          errors={errorMessages}
           handleAssignmentFieldChanged={handleAssignmentFieldChanged}
           handleConfigFileChanged={(files) => setConfigFile(files.pop())}
         />

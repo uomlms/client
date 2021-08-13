@@ -1,5 +1,6 @@
 import { Select as MuiSelect } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -10,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
  * @param {Object} props
  * @returns {JSX.Element}
  */
-const Select = ({ formControlProps, selectProps, options }) => {
+const Select = ({ formControlProps, selectProps, options, ...props }) => {
   return (
     <FormControl variant="outlined" {...formControlProps}>
       <InputLabel id="select-outlined-label">{selectProps.label}</InputLabel>
@@ -22,6 +23,7 @@ const Select = ({ formControlProps, selectProps, options }) => {
           </MenuItem>
         ))}
       </MuiSelect>
+      {props.helperText && <FormHelperText>{props.helperText}</FormHelperText>}
     </FormControl>
   );
 };

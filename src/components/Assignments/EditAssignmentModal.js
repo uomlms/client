@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import Box from '@material-ui/core/Box';
-import Alert from '@material-ui/lab/Alert';
 import AssignmentForm from './AssignmentForm';
 import Dialog from '../UI/Dialog';
 import SuccessButton from '../UI/Buttons/SuccessButton';
@@ -57,13 +55,10 @@ const EditAssignmentModal = (props) => {
     props.modalProps.onClose();
   };
 
-  const updateAssignmentError =
-    errors &&
-    errors.map((err) => (
-      <Box key={err.message} my={1}>
-        <Alert severity="error">{err.message}</Alert>
-      </Box>
-    ));
+  const errorMessages = errors?.reduce((obj, error) => {
+    obj[error.field] = error.message;
+    return obj;
+  }, {});
 
   return (
     <Dialog
@@ -72,9 +67,9 @@ const EditAssignmentModal = (props) => {
       maxWidth="md"
       actions={<SuccessButton onClick={handleSaveClicked}>Save</SuccessButton>}
     >
-      {updateAssignmentError}
       <AssignmentForm
         assignment={assignmentData}
+        errors={errorMessages}
         handleAssignmentFieldChanged={handleAssignmentFieldChanged}
         handleConfigFileChanged={(files) => setConfigFile(files.pop())}
       />

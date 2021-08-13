@@ -1,8 +1,5 @@
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Alert from '@material-ui/lab/Alert';
+import CourseForm from './CourseForm';
 import Dialog from '../UI/Dialog';
-import TextField from '../UI/TextField';
 import SuccessButton from '../UI/Buttons/SuccessButton';
 import useCourseData from '../../hooks/use-course-data';
 import useRequest from '../../hooks/use-request';
@@ -42,13 +39,10 @@ const CreateCourseModal = (props) => {
     props.modalProps.onClose();
   };
 
-  const errorMessages =
-    errors &&
-    errors.map((err) => (
-      <Box key={err.message} my={1}>
-        <Alert severity="error">{err.message}</Alert>
-      </Box>
-    ));
+  const errorMessages = errors?.reduce((obj, error) => {
+    obj[error.field] = error.message;
+    return obj;
+  }, {});
 
   return (
     <Dialog
@@ -57,48 +51,12 @@ const CreateCourseModal = (props) => {
       maxWidth="md"
       actions={<SuccessButton onClick={handleCreateCourseClicked}>Create</SuccessButton>}
     >
-      <Grid container spacing={1}>
-        {errorMessages && (
-          <Grid item md={12}>
-            {errorMessages}
-          </Grid>
-        )}
-        <Grid item md={4}>
-          <TextField
-            label="Name"
-            fullWidth
-            value={courseData.name}
-            onChange={(event) => handleCourseDataChanged(event, 'name')}
-          />
-        </Grid>
-        <Grid item md={4}>
-          <TextField
-            label="Professor"
-            fullWidth
-            value={courseData.professor}
-            onChange={(event) => handleCourseDataChanged(event, 'professor')}
-          />
-        </Grid>
-        <Grid item md={4}>
-          <TextField
-            type="number"
-            label="Semester"
-            fullWidth
-            value={courseData.semester}
-            onChange={(event) => handleCourseDataChanged(event, 'semester')}
-          />
-        </Grid>
-        <Grid item md={12}>
-          <TextField
-            label="Description"
-            fullWidth
-            multiline
-            row={4}
-            value={courseData.description}
-            onChange={(event) => handleCourseDataChanged(event, 'description')}
-          />
-        </Grid>
-      </Grid>
+      <CourseForm
+        isStaff={props.isStaff}
+        course={courseData}
+        errors={errorMessages}
+        handleCourseDataChanged={handleCourseDataChanged}
+      />
     </Dialog>
   );
 };
