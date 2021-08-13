@@ -40,7 +40,10 @@ const AssignmentTable = (props) => {
         <TableCell>{assignment.name}</TableCell>
         <TableCell>{assignment.type}</TableCell>
         <TableCell>{assignment.description}</TableCell>
-        <TableCell>{assignment.deadline.match(/\d{4}-\d{2}-\d{2}/).pop()}</TableCell>
+        <TableCell>
+          {assignment.deadline.match(/\d{4}-\d{2}-\d{2}/).pop()},{' '}
+          {assignment.deadline.match(/\d{2}:\d{2}/).pop()}
+        </TableCell>
         <TableCell align="right" style={{ width: '20%' }}>
           <AssignmentActions
             assignment={assignment}

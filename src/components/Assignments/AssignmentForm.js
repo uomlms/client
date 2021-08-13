@@ -42,12 +42,12 @@ const AssignmentForm = (props) => {
       </Grid>
       <Grid item md={4}>
         <TextField
-          type="date"
+          type="datetime-local"
           label="Deadline"
           fullWidth
           error={props.errors?.hasOwnProperty('deadline')}
           helperText={props.errors?.hasOwnProperty('deadline') && props.errors.deadline}
-          value={props.assignment?.deadline.match(/\d{4}-\d{2}-\d{2}/)?.pop() ?? ''}
+          value={props.assignment?.deadline.replace(/Z$/, '') ?? ''}
           onChange={(event) => props.handleAssignmentFieldChanged(event, 'deadline')}
           InputLabelProps={{
             shrink: true,
