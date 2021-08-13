@@ -44,12 +44,17 @@ const EditAssignmentModal = (props) => {
       return;
     }
 
-    props.updateAssignment(updatedAssignment);
-
-    if (configFile) {
-      props.uploadConfigFile(updatedAssignment, configFile);
-      setConfigFile(null);
+    // If the config file doesn't exist or if the config file is empty (which occurs when the user uploads
+    // an empty file or when we initialize the dropzone area with an empty dummy file)
+    if (configFile && configFile.size !== 0) {
+      const assignmentWithConfig = await props.uploadConfigFile(updatedAssignment, configFile);
+      if (assignmentWithConfig) {
+        props.updateAssignment(assignmentWithConfig);
+      }
+    } else {
+      props.updateAssignment(updatedAssignment);
     }
+    setConfigFile(null);
 
     clearAssignmentData();
     props.modalProps.onClose();

@@ -69,8 +69,11 @@ const AssignmentForm = (props) => {
       <Grid item md={12}>
         <DropzoneArea
           dropzoneText="Drag and drop the configuration file for this assignment"
-          initialFiles={[]}
-          // acceptedFiles={[]} // A list of files to accept
+          initialFiles={
+            props.assignment?.configFile && [
+              new File([], props.assignment.configFile.replace(/^configs\/[a-z0-9]+-/, '')),
+            ]
+          }
           filesLimit={1}
           showAlerts={false}
           showFileNames={true}

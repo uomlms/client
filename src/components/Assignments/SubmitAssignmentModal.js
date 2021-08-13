@@ -70,8 +70,6 @@ const SubmitAssignmentModal = (props) => {
         {errorMessages}
         <DropzoneArea
           dropzoneText="Drag and drop the solution file for this assignment"
-          // initialFiles={[props.assignment.configFile]}
-          // acceptedFiles={[]} // A list of files to accept
           filesLimit={1}
           showAlerts={false}
           showFileNames={true}
