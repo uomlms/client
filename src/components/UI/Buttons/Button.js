@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { Button as MuiButton } from '@material-ui/core';
 
 /**
@@ -7,12 +8,12 @@ import { Button as MuiButton } from '@material-ui/core';
  * @param {object} props
  * @returns {JSX.Element}
  */
-const Button = (props) => {
+const Button = forwardRef((props, ref) => {
   return (
-    <MuiButton variant="contained" {...props}>
+    <MuiButton variant="contained" {...props} ref={ref}>
       {props.children}
     </MuiButton>
   );
-};
+});
 
 export default Button;

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Courses from '../components/Courses/Courses';
 import useClient from '../hooks/use-client';
+import useCurrentUser from '../hooks/use-current-user';
 
 /**
  * The Courses page displayed in the /courses route
@@ -18,7 +19,7 @@ const CoursesPage = ({ currentUser, courses }) => {
     if (!currentUser) {
       router.push('/welcome');
     }
-  }, [currentUser]);
+  }, []);
 
   return <Courses courses={courses} isStaff={isStaff} />;
 };
@@ -31,15 +32,13 @@ const CoursesPage = ({ currentUser, courses }) => {
  */
 export const getServerSideProps = async (context) => {
   const client = useClient(context);
-  let courses = [];
-  let currentUser;
+  const getCurrentUser = useCurrentUser(context);
+  const currentUser = await getCurrentUser();
 
+  let courses = [];
   try {
     const response = await client.get('/api/courses');
     courses = response.data;
-
-    const { data } = await client.get('/api/users/currentuser');
-    currentUser = data.currentUser ? data.currentUser : null;
   } catch (error) {
     console.log(error);
   }

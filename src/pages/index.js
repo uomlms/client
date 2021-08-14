@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Home from '../components/Home';
-import useClient from '../hooks/use-client';
+import useCurrentUser from '../hooks/use-current-user';
 
 /**
  * The Home page displayed in the / route
@@ -17,7 +17,7 @@ const HomePage = ({ currentUser }) => {
     if (!currentUser) {
       router.push('/welcome');
     }
-  }, [currentUser]);
+  }, []);
 
   return <Home />;
 };
@@ -29,15 +29,8 @@ const HomePage = ({ currentUser }) => {
  * @returns {object}
  */
 export const getServerSideProps = async (context) => {
-  const client = useClient(context);
-  let currentUser;
-
-  try {
-    const { data } = await client.get('/api/users/currentuser');
-    currentUser = data.currentUser ? data.currentUser : null;
-  } catch (error) {
-    console.log(error);
-  }
+  const getCurrentUser = useCurrentUser(context);
+  const currentUser = await getCurrentUser();
 
   return {
     props: { title: 'HOME', currentUser: currentUser },

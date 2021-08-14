@@ -56,9 +56,9 @@ const AppBar = (props) => {
   const authenticatedButtons = (
     <React.Fragment>
       <Typography className={classes.buttonTypography}>{props.currentUser?.name} |</Typography>
-      <Button color="inherit">
-        <Link href="/auth/signout">Sign Out</Link>
-      </Button>
+      <Link href="/auth/signout">
+        <Button color="inherit">Sign Out</Button>
+      </Link>
     </React.Fragment>
   );
 

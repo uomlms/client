@@ -11,7 +11,7 @@ import MainContent from '../UI/MainContent';
 const AnonymousLayout = (props) => {
   return (
     <React.Fragment>
-      <AppBar isAuthenticated={false} />
+      <AppBar title={props.title} isAuthenticated={false} />
       <MainContent isAuthenticated={false}>{props.children}</MainContent>
     </React.Fragment>
   );

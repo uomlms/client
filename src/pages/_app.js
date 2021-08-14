@@ -25,7 +25,7 @@ const AppComponent = ({ Component, pageProps }) => {
   );
 
   const anonymousLayout = (
-    <AnonymousLayout>
+    <AnonymousLayout title={pageProps.title}>
       <CssBaseline />
       <Component {...pageProps} />
     </AnonymousLayout>
