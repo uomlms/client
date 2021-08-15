@@ -77,7 +77,7 @@ const AppBar = (props) => {
             </IconButton>
           </Hidden>
         )}
-        <Link href="/">
+        <Link href={props.isAuthenticated ? '/' : '/welcome'}>
           <a className={classes.title}>
             <Typography variant="h6" noWrap>
               UOMLMS {props.title && `| ${props.title}`}
