@@ -79,15 +79,13 @@ const Home = ({ currentUser, noCourses }) => {
               </Box>
               <Box m={1}>
                 <Typography>
-                  <strong>Name: </strong>
-                  {currentUser.name}
+                  <strong>Name: </strong> {currentUser?.name}
                 </Typography>
                 <Typography>
-                  <strong>Email:</strong> {currentUser.email}
+                  <strong>Email:</strong> {currentUser?.email}
                 </Typography>
                 <Typography>
-                  <strong>Role: </strong>
-                  {currentUser.role}
+                  <strong>Role: </strong> {currentUser?.role}
                 </Typography>
               </Box>
             </Box>
