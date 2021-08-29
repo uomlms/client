@@ -47,7 +47,7 @@ const AssignmentForm = (props) => {
           fullWidth
           error={props.errors?.hasOwnProperty('deadline')}
           helperText={props.errors?.hasOwnProperty('deadline') && props.errors.deadline}
-          value={props.assignment?.deadline.replace(/Z$/, '') ?? ''}
+          value={props.assignment?.deadline?.replace(/Z$/, '') ?? ''}
           onChange={(event) => props.handleAssignmentFieldChanged(event, 'deadline')}
           InputLabelProps={{
             shrink: true,
@@ -71,7 +71,7 @@ const AssignmentForm = (props) => {
           dropzoneText="Drag and drop the configuration file for this assignment"
           initialFiles={
             props.assignment?.configFile && [
-              new File([], props.assignment.configFile.replace(/^configs\/[a-z0-9]+-/, '')),
+              new File([], props.assignment.configFile?.replace(/^configs\/[a-z0-9]+-/, '')),
             ]
           }
           filesLimit={1}
