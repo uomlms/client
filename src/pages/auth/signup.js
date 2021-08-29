@@ -15,7 +15,7 @@ const SignUpPage = ({ currentUser }) => {
   useEffect(() => {
     // Redirects the user to the home page if he is authenticated
     if (currentUser) {
-      router.push('/');
+      router.push('/home');
     }
   }, []);
 
