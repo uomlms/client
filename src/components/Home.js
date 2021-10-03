@@ -80,14 +80,14 @@ const Home = ({ currentUser, noCourses }) => {
               <Box m={1}>
                 <Typography>
                   <strong>Name: </strong>
-                  {currentUser.name}
+                  {currentUser?.name}
                 </Typography>
                 <Typography>
-                  <strong>Email:</strong> {currentUser.email}
+                  <strong>Email:</strong> {currentUser?.email}
                 </Typography>
                 <Typography>
                   <strong>Role: </strong>
-                  {currentUser.role}
+                  {currentUser?.role}
                 </Typography>
               </Box>
             </Box>

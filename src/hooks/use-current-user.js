@@ -16,7 +16,7 @@ const useCurrentUser = (context) => {
    * @returns {Object}
    */
   const getCurrentUser = async () => {
-    let currentUser;
+    let currentUser = null;
     try {
       const { data } = await client.get('/api/users/currentuser');
       currentUser = data.currentUser ? data.currentUser : null;
