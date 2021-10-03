@@ -70,7 +70,10 @@ const AssignmentHistoryModal = (props) => {
               let borderColor = 'error.main';
               if (submission.status === 'pending') {
                 borderColor = 'warning.main';
-              } else if (submission.status === 'success') {
+              } else if (
+                submission.status === 'success' ||
+                submission.status === 'partially-success'
+              ) {
                 borderColor = 'success.main';
               }
 
