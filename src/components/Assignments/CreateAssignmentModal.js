@@ -41,7 +41,7 @@ const CreateAssignmentModal = (props) => {
     // If the config file doesn't exist or if the config file is empty (which occurs when the user uploads
     // an empty file or when we initialize the dropzone area with an empty dummy file)
     if (configFile && configFile.size !== 0) {
-      const assignmentWithConfig = props.uploadConfigFile(newAssignment, configFile);
+      const assignmentWithConfig = await props.uploadConfigFile(newAssignment, configFile);
       if (assignmentWithConfig) {
         props.createAssignment(assignmentWithConfig);
       }

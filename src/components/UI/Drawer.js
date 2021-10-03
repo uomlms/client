@@ -40,11 +40,11 @@ const Drawer = (props) => {
     <React.Fragment>
       <Toolbar />
       <List component="nav">
-        <Link href="/">
+        <Link href="/home">
           <ListItem
             button
             key="home"
-            selected={router.pathname === '/'}
+            selected={router.pathname === '/home'}
             classes={{
               selected: classes.selectedMenuItem,
             }}
